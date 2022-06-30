@@ -1,4 +1,3 @@
-
 import pieces.T;
 
 //0 empty
@@ -7,17 +6,46 @@ import pieces.T;
 //2 piece blocked
 public class Table {
     int[][] table = new int[9][12];
-    Point point = new Point(1, 5);
+    Point point;
     T piece = new T();
 
     public Table() {
-        putPoint();
+        point = new Point(1, 5);
     }
 
+    private boolean canMovePointLeft() {
+        return point.y_coordenade - 1 >= 0;
+    }
 
-    private void putPoint() {
-        reset();
-        table[point.x_coordenade][point.y_coordenade] = 1;
+//--------------------------------------------------------------------------------------------Tope del punto
+    private boolean canMovePointRight() {
+        return point.y_coordenade + 1 < table[0].length;
+    }
+
+    private boolean canMovePointDown() {
+        return point.x_coordenade + 1 < table.length;
+    }
+
+//------------------------------------------------------------topePieza
+    private boolean canPutPieceLeft() {
+        for (int i = 0; i < table.length; i++) {
+            if (table[i][0] == 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean canPutPieceRight() {
+        int lend = table[0].length;
+        for (int i = 0; i < table.length; i++) {
+            if (table[i][lend - 1] == 1) {
+                return false;
+            }
+
+        }
+        return true;
+
     }
 
     private void reset() {
@@ -30,39 +58,60 @@ public class Table {
         }
     }
 
+//-------------------------------------------------------------Poner pieza sobre el punto
     private void printUnderPoint() {
         reset();
+
         int printX = 0;
         for (int i = point.x_coordenade - 1; i <= point.x_coordenade + 1; i++) {
             int printY = 0;
             for (int j = point.y_coordenade - 1; j <= point.y_coordenade + 1; j++) {
-                table[i][j] = piece.areTherePiece(printX, printY) ? 1 : 0;
+                if (j < table[0].length && j >= 0) {
+                    table[i][j] = piece.areTherePiece(printX, printY) ? 1 : 0;
+                } else {
+                    break;
+                }
                 printY++;
             }
             printX++;
         }
     }
-
+//--------------------------------------------------------------Poner punto
+    private void printPoint() {
+        reset();
+        table[point.x_coordenade][point.y_coordenade] = 1;
+    }
+//-----------------------------------------------------------------Decision de movimiento
     public void movedPoint(char boton) {
         switch (boton) {
             case 'a' -> {
-                point.setY_coordenade(point.getY_coordenade() - 1);
-                putPoint();
-                printUnderPoint();
+                if (canMovePointLeft() && canPutPieceLeft()) {
+                    point.setY_coordenade(point.getY_coordenade() - 1);
+                    printPoint();
+                    printUnderPoint();
+                }
+
             }
             case 's' -> {
-                point.setX_coordenade(point.getX_coordenade() + 1);
-                putPoint();
+                if (canMovePointDown()) {
+                    point.setX_coordenade(point.getX_coordenade() + 1);
+
+                }
+                printPoint();
                 printUnderPoint();
             }
             case 'd' -> {
-                point.setY_coordenade(point.getY_coordenade() + 1);
-                putPoint();
-                printUnderPoint();
+                if (canMovePointRight() && canPutPieceRight()) {
+                    point.setY_coordenade(point.getY_coordenade() + 1);
+                    printPoint();
+                    printUnderPoint();
+                }
+
+
             }
         }
     }
-
+//--------------------------------------------------------------Imprimir tabla
     public void printTable() {
         for (int[] ints : table) {
             for (int j = 0; j < table[0].length; j++) {
