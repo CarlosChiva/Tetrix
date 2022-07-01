@@ -8,18 +8,6 @@ public class main {
         table.printTable();
         Scanner scn = new Scanner(System.in);
         char chos;
-    /*  T piece=new T();
-      piece.print();
-      piece.turnRight();
-        System.out.println("-----right-----");
-      piece.print();
-        piece.turnLeft();
-        System.out.println("-------left---");
-        piece.print();
-        piece.turnLeft();
-        System.out.println("---------left-");
-        piece.print();
-      */
         do {
             String chose = scn.next();
             char[] choose = chose.toCharArray();
@@ -27,7 +15,9 @@ public class main {
             System.out.println("-------------------------");
             table.movedPoint(chos);
             table.printTable();
+//if (table.finalMove()){
 
+//}
         } while (chos != 0);
     }
 }
