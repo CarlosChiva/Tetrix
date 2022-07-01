@@ -15,7 +15,7 @@ public class main {
             System.out.println("-------------------------");
             table.movedPoint(chos);
             table.printTable();
-//if (table.finalMove()){
+
 
 //}
         } while (chos != 0);
