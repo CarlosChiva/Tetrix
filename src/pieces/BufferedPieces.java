@@ -12,6 +12,8 @@ public class BufferedPieces {
         pieces.add(new T().getPieceT());
         pieces.add(new L().getPieceL());
         pieces.add(new Q().getPieceQ());
+        pieces.add(new Z().getPieceZ());
+        pieces.add(new S().getPieceS());
 
     }
 

@@ -6,7 +6,7 @@ import pieces.Piece;
 //1 piece
 //2 piece blocked
 public class Table {
-   int[][] table = new int[9][12];
+    int[][] table = new int[9][12];
     Point point;
     BufferedPieces bufferedPieces = new BufferedPieces();
     Piece piece;
@@ -39,88 +39,89 @@ public class Table {
 
     //---------------------------------------Left
     protected boolean canMovePointLeft() {
-        return point.y_coordenade - 1 >= 0;
+        return point.getY_coordenade() - 1 >= 0;
     }
 
-    private boolean pieceInLeftBorder() {
+    protected boolean pieceInLeftBorder() {
         for (int[] ints : table) {
             if (ints[0] == 1) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
-    private boolean otherPieceInLeft() {
+    protected boolean otherPieceInLeft() {
         for (int[] ints : table)
             for (int j = 0; j < length_Of_Y; j++) {
                 if (ints[j] == 2 && ints[j + 1] == 1) {
-                    return false;
+                    return true;
                 }
             }
 
-        return true;
+        return false;
     }
 
     protected boolean canPutPieceLeft() {
-        return pieceInLeftBorder() && otherPieceInLeft();
+        return !pieceInLeftBorder() && !otherPieceInLeft();
     }
 
     //------------------------------------------------------------Right
-    private boolean pieceInRightBorder() {
+    protected boolean pieceInRightBorder() {
         for (int i = 0; i < length_Of_X; i++) {
             if (table[i][length_Of_Y - 1] == 1) {
-                return false;
+                return true;
             }
         }
-        return true;
+
+        return false;
     }
 
     private boolean otherPieceInRight() {
         for (int i = 0; i < length_Of_X; i++)
             for (int j = 0; j < length_Of_Y; j++) {
                 if (table[i][j] == 1 && table[i][j + 1] == 2) {
-                    return false;
+                    return true;
                 }
             }
 
-        return true;
+        return false;
     }
 
     protected boolean canPutPieceRight() {
-        return pieceInRightBorder() && otherPieceInRight();
+        return !pieceInRightBorder() && !otherPieceInRight();
     }
 
     protected boolean canMovePointRight() {
-        return point.y_coordenade + 1 < table[0].length;
+        return point.getY_coordenade() + 1 < length_Of_Y;
     }
 
 
     //--------------------------------------------------------------------------------------------Down
-    private boolean pieceInBotoom() {
+    protected boolean pieceInBotoom() {
         for (int i = 0; i < length_Of_X; i++) {
             for (int j = 0; j < length_Of_Y; j++) {
                 if (table[i][j] == 1 && i == length_Of_X - 1) {
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
     private boolean otherPieceDown() {
         for (int i = 0; i < length_Of_X; i++)
             for (int j = 0; j < length_Of_Y; j++) {
                 if (table[i][j] == 1 && table[i + 1][j] == 2) {
-                    return false;
+                    return true;
                 }
             }
 
-        return true;
+        return false;
     }
 
     protected boolean canPutPiecedown() {
-        return pieceInBotoom() && otherPieceDown();
+        return !pieceInBotoom() && !otherPieceDown();
     }
 
     protected boolean canMovePointDown() {
@@ -176,9 +177,9 @@ public class Table {
         Piece aux = new Piece(bufferedPieces.getPiece());
         aux.turnRight();
         int printX = 0;
-        for (int i = point.x_coordenade - 1; i <= point.x_coordenade + 1; i++) {
+        for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
-            for (int j = point.y_coordenade - 1; j <= point.y_coordenade + 1; j++) {
+            for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
                 if (j >= length_Of_Y || j <= 0 && aux.areTherePiece(printX, printY)) {
                     return false;
                 }

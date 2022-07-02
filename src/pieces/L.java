@@ -3,6 +3,7 @@ package pieces;
 public class L {
     int[][] pieceL = new int[3][3];
     public L() {
+
     }
     public int[][] getPieceL() {
         pieceL[0][0] = 1;

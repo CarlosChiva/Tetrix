@@ -8,48 +8,61 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TableTest {
     Table table;
-    Point point;
-    Piece piece;
-    BufferedPieces bufferedPieces = new BufferedPieces();
+    BufferedPieces bufferedPieces;
 
     @BeforeEach
     void setUp() {
         table = new Table();
-        point = new Point(1, 5);
+        bufferedPieces = new BufferedPieces();
     }
 
     @AfterEach
     void tearDown() {
     }
-//--------------------------------------------------------------------------------PointTest
+
+    //--------------------------------------------------------------------------------PointTest
     @Test
     void PutPointIntoTable_return_True() {
         table.newPoint();
-        boolean positionX = point.x_coordenade > 0 && point.x_coordenade < 12;
-        boolean positionY = point.y_coordenade >= 0 && point.y_coordenade < 9;
+        boolean positionX = table.point.getX_coordenade() > 0 && table.point.getX_coordenade() < table.length_Of_X;
+        boolean positionY = table.point.getY_coordenade() >= 0 && table.point.getY_coordenade() < table.length_Of_Y;
         assertTrue(positionX && positionY);
     }
 
     @Test
     void PutPointOutOfTable_return_False() {
         table.newPoint();
-        point.setY_coordenade(13);
-        point.setX_coordenade(10);
-        boolean positionX = point.x_coordenade > 0 && point.x_coordenade < 9;
-        boolean positionY = point.y_coordenade >= 0 && point.y_coordenade < 12;
+        table.point.setY_coordenade(table.length_Of_Y);
+        table.point.setX_coordenade(table.length_Of_X);
+        boolean positionX = table.point.getX_coordenade() >= 0 && table.point.getX_coordenade() < table.length_Of_X;
+        boolean positionY = table.point.getY_coordenade() >= 0 && table.point.getY_coordenade() < table.length_Of_Y;
         assertFalse(positionX && positionY);
     }
+
+    @Test
+    void PutPointOutOfTable2_return_False() {
+        table.newPoint();
+        table.point.setY_coordenade(-1);
+        table.point.setX_coordenade(-1);
+        boolean positionX = table.point.x_coordenade > 0 && table.point.x_coordenade < 12;
+        boolean positionY = table.point.y_coordenade >= 0 && table.point.y_coordenade < 9;
+        assertFalse(positionX && positionY);
+    }
+
+
     @Test
     void canMovePointOutOfTableY_Right_return_True() {
         table.newPoint();
         assertTrue(table.canMovePointRight());
     }
+
     @Test
     void canMovePointOutOfTableY_Right_return_False() {
         table.newPoint();
-        table.point.setY_coordenade(11);
+        table.point.setY_coordenade(table.length_Of_Y - 1);
         assertFalse(table.canMovePointRight());
     }
+
     @Test
     void canMovePointOutOfTableY_Left_return_False() {
         table.newPoint();
@@ -58,15 +71,32 @@ class TableTest {
     }
 
     @Test
-    void PutPointOutOfTable2_return_False() {
-        table.newPoint();
-        point.setY_coordenade(-1);
-        point.setX_coordenade(-1);
-        boolean positionX = point.x_coordenade > 0 && point.x_coordenade < 12;
-        boolean positionY = point.y_coordenade >= 0 && point.y_coordenade < 9;
-        assertFalse(positionX && positionY);
+    void areThereInTheBorderLeft_return_True() {
+        table.point.setY_coordenade(0);
+        assertTrue(table.point.getY_coordenade() == 0);
     }
 
+    @Test
+    void areThereInTheBorderRight_return_True() {
+        table.newPoint();
+        table.point.setY_coordenade(table.length_Of_Y - 1);
+        assertTrue(table.point.getY_coordenade() == table.length_Of_Y - 1);
+    }
+
+    @Test
+    void areThereInTheBorderBottom_return_True() {
+        table.newPoint();
+        table.point.setX_coordenade(table.length_Of_X - 1);
+        assertTrue(table.point.getX_coordenade() == table.length_Of_X - 1);
+    }
+
+    @Test
+    void areThereInTheBorderBottom_return_False() {
+        table.newPoint();
+        assertFalse(table.point.getX_coordenade() == table.length_Of_X - 1);
+    }
+
+    //------------------------------------------------------------------------------------Pieces Tests
     @Test
     void PutPieceOnTable_return_True() {
         table.newPoint();
@@ -74,19 +104,73 @@ class TableTest {
         assertTrue(table.canPutPieceLeft() && table.canPutPieceRight() && table.canPutPiecedown());
     }
 
+    //---------------------------------------------------------------MovePiece right
     @Test
-    void areThereInTheBorderLeft_return_True() {
+    void PutPieceOnTable_Right_return_True() {
         table.newPoint();
-        point.setX_coordenade(0);
-        point.setY_coordenade(0);
-        assertTrue(table.areThereBorderL());
+        table.printUnderPoint();
+        assertTrue(table.canPutPieceRight());
     }
 
     @Test
-    void areThereInTheBorderRight_return_True() {
+    void PutPieceOnTable_RightBorder_return_False() {
         table.newPoint();
-        point.setX_coordenade(9);
-        point.setY_coordenade(12);
-        assertTrue(table.areThereBorderR());
+        table.printUnderPoint();
+        assertFalse(table.pieceInRightBorder());
     }
+
+    @Test
+    void PutPieceOnTable_RightBorder_return_True() {
+        table.newPoint();
+        table.point.setY_coordenade(table.length_Of_Y-1);
+        table.point.setX_coordenade(1);
+        table.printUnderPoint();
+        assertTrue(table.pieceInRightBorder());
+    }
+
+    //---------------------------------------------------------------MovePiece Left
+    @Test
+    void PutPieceOnTable_Left_return_True() {
+        table.newPoint();
+        assertTrue(table.canPutPieceLeft());
+    }
+
+    @Test
+    void PutPieceOnTable_LeftBorder_return_False() {
+        table.newPoint();
+        table.printUnderPoint();
+        assertFalse(table.pieceInLeftBorder());
+    }
+
+    @Test
+    void PutPieceOnTable_LeftBorder_return_True() {
+        table.newPoint();
+        table.point.setY_coordenade(1);
+        table.point.setX_coordenade(1);
+        table.printUnderPoint();
+        assertTrue(table.pieceInLeftBorder());
+    }
+
+    //----------------------------------------------------------------MovePiece Down
+    @Test
+    void PutPieceOnTable_Bottom_return_True() {
+        table.newPoint();
+        assertTrue(table.canPutPiecedown());
+    }
+    @Test
+    void PieceOnBottom_Bottom_return_True() {
+        table.newPoint();
+        table.point.setX_coordenade(table.length_Of_X-2);     // piece L
+        table.printUnderPoint();
+        assertTrue(table.pieceInBotoom());
+    }
+
+    @Test
+    void PieceOnBottom_Bottom_return_False() {
+        table.newPoint();
+        table.printUnderPoint();
+        assertFalse(table.pieceInBotoom());
+    }
+
+
 }
