@@ -52,7 +52,7 @@ public class Table {
 
     protected boolean otherPieceInLeft() {
         for (int i = 0; i < length_Of_X; i++)
-            for (int j = length_Of_Y-1; j >=1; j--) {
+            for (int j = length_Of_Y - 1; j >= 1; j--) {
                 if (table[i][j] == 1 && table[i][j - 1] == 2) {
                     return true;
                 }
@@ -284,7 +284,7 @@ public class Table {
                     printUnderPoint();
                 } else {
                     blockedPiece();
-                    if (rowsFill()){
+                    if (rowsFill()) {
                         System.out.println("Good");
                     }
 
