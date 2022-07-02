@@ -197,7 +197,39 @@ class TableTest {
         table.printUnderPoint();
         assertFalse(table.areTherePieceR());
     }
-//----------------------------------------------------left
+
+    @Test
+    void areThereOtherPieceRight_return_False() {
+        table.newPoint();
+        table.printUnderPoint();
+        assertFalse(table.areTherePieceR());
+    }
+
+    @Test
+    void areThereOtherPieceRight_return_True() {
+        table.newPoint();
+        table.table[6][11]=2;
+        table.point.setX_coordenade(table.length_Of_X-2);
+        table.point.setY_coordenade(table.length_Of_Y-2);
+        table.printUnderPoint();
+        assertTrue(table.areTherePieceR());
+    }
+    @Test
+    void areThereBorderRight_return_True() {
+        table.newPoint();
+        table.point.setX_coordenade(table.length_Of_X-2);
+        table.point.setY_coordenade(table.length_Of_Y-1);
+        table.printUnderPoint();
+        assertTrue(table.areThereBorderR());
+    }
+    @Test
+    void areThereBorderRight_return_False() {
+        table.newPoint();
+        table.printUnderPoint();
+        assertFalse(table.areThereBorderR());
+    }
+
+    //----------------------------------------------------left
 @Test
 void canTurnPieceLeft_return_true() {
     table.newPoint();
