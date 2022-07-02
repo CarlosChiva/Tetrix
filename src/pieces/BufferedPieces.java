@@ -1,8 +1,10 @@
 package pieces;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class BufferedPieces {
-    LinkedList<int[][]> pieces = new LinkedList<>();
+    ArrayList<int[][]> pieces = new ArrayList<>();
 
     public BufferedPieces() {
         fillList();
@@ -18,9 +20,14 @@ public class BufferedPieces {
     }
 
     public int[][] getPiece() {
-        if (pieces.size()==0){
+        int pieceRandom = (int) (Math.random() * pieces.size() + 1);
+        if (pieces.size() == 0)
             fillList();
-        }
-        return pieces.pop();
+
+        int[][] piece = pieces.get(pieceRandom);
+
+        pieces.remove(pieceRandom);
+        return piece;
+
     }
 }
