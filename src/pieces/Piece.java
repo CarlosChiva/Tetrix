@@ -5,6 +5,11 @@ public class Piece implements IPiece {
 public Piece(int[][] piece){
     this.piece=piece;
 }
+
+    public int[][] getPiece() {
+        return piece;
+    }
+
     @Override
     public boolean areTherePiece(int xCoordenade, int yCoordenade) {
         return piece[xCoordenade][yCoordenade] == 1;

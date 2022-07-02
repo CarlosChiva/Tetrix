@@ -122,7 +122,7 @@ class TableTest {
     @Test
     void PutPieceOnTable_RightBorder_return_True() {
         table.newPoint();
-        table.point.setY_coordenade(table.length_Of_Y-1);
+        table.point.setY_coordenade(table.length_Of_Y - 1);
         table.point.setX_coordenade(1);
         table.printUnderPoint();
         assertTrue(table.pieceInRightBorder());
@@ -157,10 +157,11 @@ class TableTest {
         table.newPoint();
         assertTrue(table.canPutPiecedown());
     }
+
     @Test
     void PieceOnBottom_Bottom_return_True() {
         table.newPoint();
-        table.point.setX_coordenade(table.length_Of_X-2);     // piece L
+        table.point.setX_coordenade(table.length_Of_X - 2);     // piece L
         table.printUnderPoint();
         assertTrue(table.pieceInBotoom());
     }
@@ -172,5 +173,56 @@ class TableTest {
         assertFalse(table.pieceInBotoom());
     }
 
+    //----------------------------------------------------------------------Turn Piece
+    //-----------------------------------------------------right
+    @Test
+    void canTurnPieceRight_return_true() {
+        table.newPoint();
+        table.printUnderPoint();
+        assertTrue(table.canTurnRight());
+    }
 
+    @Test
+    void canTurnPieceRight_return_False() {
+        table.newPoint();
+        table.point.setX_coordenade(1);
+        table.point.setY_coordenade(table.length_Of_Y - 1);
+        table.printUnderPoint();
+        assertFalse(table.canTurnRight());
+    }
+
+    @Test
+    void areTherePieceRight_return_False() {
+        table.newPoint();
+        table.printUnderPoint();
+        assertFalse(table.areTherePieceR());
+    }
+//----------------------------------------------------left
+@Test
+void canTurnPieceLeft_return_true() {
+    table.newPoint();
+    table.printUnderPoint();
+    assertTrue(table.canTurnLeft());
+}
+
+    @Test
+    void canTurnPieceLeft_return_False() {
+
+        table.newPoint();
+        table.point.setX_coordenade(1);
+        table.point.setY_coordenade(1);
+        table.printUnderPoint();
+        table.piece.turnLeft();
+        table.piece.turnLeft();
+        table.printUnderPoint();
+        table.movedPoint('a');
+        assertFalse(table.canTurnLeft());
+    }
+
+    @Test
+    void areTherePieceLeft_return_False() {
+        table.newPoint();
+        table.printUnderPoint();
+        assertFalse(table.areTherePieceL());
+    }
 }
