@@ -6,6 +6,7 @@ import pieces.Piece;
 //2 piece blocked
 public class Table {
     int[][] table = new int[9][12];
+    int yourSoucre = 0;
     Point point;
     BufferedPieces bufferedPieces = new BufferedPieces();
     Piece piece;
@@ -258,14 +259,57 @@ public class Table {
             for (int j = 0; j < length_Of_Y; j++) {
                 if (table[i][j] == 2) {
                     count++;
-                    if (count == length_Of_X) {
-                        break;
+                    if (count == length_Of_Y) {
+                        return true;
+
                     }
                 }
             }
             count = 0;
         }
-        return count == length_Of_X - 1;
+        return false;
+    }
+
+    //-------------------------------------------------------------------Update Scoures
+    private void updatePoint() {
+        yourSoucre += 100;
+    }
+
+    //------------------------------------------------------------------Delete row
+    private void deleteRow(int x) {
+        for (int i = 0; i < length_Of_Y; i++) {
+            table[x][i] = 0;
+        }
+    }
+
+    private int searchRow() {
+        int rowX = 0;
+        int count = 0;
+        for (int i = 0; i < length_Of_X; i++) {
+            for (int j = 0; j < length_Of_Y; j++) {
+                if (table[i][j] == 2) {
+                    count++;
+                    if (count == length_Of_Y) {
+                        rowX = i;
+                        return rowX;
+                    }
+                }
+            }
+            count = 0;
+        }
+        return rowX;
+    }
+
+    private void dropPieces(int x) {
+        for (int i =x+1; i < 1; i--) {
+        for (int j = 0; j < length_Of_Y; j++) {
+                if (table[x][j] == 0&& table[x-1][j]==2) {
+                    table[x][j] = 2;
+                    table[x-1][j] = 0;
+
+                }
+            }
+        }
     }
 
     //-------------------------------------------------------------------Choose movement
@@ -285,7 +329,11 @@ public class Table {
                 } else {
                     blockedPiece();
                     if (rowsFill()) {
-                        System.out.println("Good");
+                        int rowFill = searchRow();
+                        deleteRow(rowFill);//eliminar linea entera bloqueada
+                        dropPieces(rowFill); //
+                        updatePoint();  //subir puntos
+                        System.out.println("Good, your scource is:  " + yourSoucre);
                     }
 
                 }
