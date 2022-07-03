@@ -25,12 +25,13 @@ public class Table {
     }
 
     public Table(L piece) {
-        pointXCoordenade=1;
-        pointYcoordenade=5;
-        this.piece=new Piece(piece.getPieceL()) ;
+        pointXCoordenade = 1;
+        pointYcoordenade = 5;
+        this.piece = new Piece(piece.getPieceL());
 
         printUnderPoint(this.piece);
     }
+
     private void reset() {
         for (int i = 0; i < getLength_Of_X(); i++) {
             for (int j = 0; j < getLength_Of_Y(); j++) {
@@ -43,13 +44,14 @@ public class Table {
 
     public void putPoint(Point point) {
         reset();
-        pointXCoordenade=point.getX_coordenade();
-        pointYcoordenade=point.getY_coordenade();
+        pointXCoordenade = point.getX_coordenade();
+        pointYcoordenade = point.getY_coordenade();
         table[point.getX_coordenade()][point.getY_coordenade()] = 1;
     }
-public int valueInTableOf(int x, int y){
+
+    public int valueInTableOf(int x, int y) {
         return table[x][y];
-}
+    }
 
     //-----------------------------------------------------------------Put piece on the point
     protected void printUnderPoint(Piece piece) {
@@ -68,9 +70,7 @@ public int valueInTableOf(int x, int y){
         }
     }
 
-
     //--------------------------------------------------------------------Blocked piece
-
     protected void blockedPiece() {
         for (int i = 0; i < getLength_Of_X(); i++) {
             for (int j = 0; j < getLength_Of_Y(); j++) {
@@ -80,9 +80,6 @@ public int valueInTableOf(int x, int y){
             }
         }
     }
-
-
-    //-------------------------------------------------------------------Update Scoures
 
     //------------------------------------------------------------------Delete row
     private void deleteRow(int x) {
