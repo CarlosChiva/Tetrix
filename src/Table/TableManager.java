@@ -1,40 +1,37 @@
+package Table;
+
+
 import pieces.BufferedPieces;
 import pieces.Piece;
 
-//0 empty
-//1 piece
-//2 piece blocked
-public class Table {
-    int[][] table = new int[9][12];
-    int yourSoucre = 0;
+public class TableManager {
+    Table table;
     Point point;
+    int sources = 0;
     BufferedPieces bufferedPieces = new BufferedPieces();
     Piece piece;
-    int length_Of_Y = table[0].length;
-    int length_Of_X = table.length;
 
-    public Table() {
+int lenghtYOfTable= table.getLength_Of_Y();
+    public TableManager() {
+        table = new Table();
         newPoint();
 
     }
 
     protected void newPoint() {
-        this.point = new Point(1, 5);
+        this.point = new Point();
+        table.putPoint(point);
         newPiece();
     }
 
     private void newPiece() {
         piece = new Piece(bufferedPieces.getPiece());
+        table.printUnderPoint(piece);
+
     }
 
-    private void reset() {
-        for (int i = 0; i < length_Of_X; i++) {
-            for (int j = 0; j < length_Of_Y; j++) {
-                if (table[i][j] == 1) {
-                    table[i][j] = 0;
-                }
-            }
-        }
+    private void updatePoint() {
+        sources += 100;
     }
 
     //--------------------------------------------------------------------------Left
@@ -43,7 +40,7 @@ public class Table {
     }
 
     protected boolean pieceInLeftBorder() {
-        for (int[] ints : table) {
+        for (int[] ints : table.table) {
             if (ints[0] == 1) {
                 return true;
             }
@@ -52,9 +49,9 @@ public class Table {
     }
 
     protected boolean otherPieceInLeft() {
-        for (int i = 0; i < length_Of_X; i++)
-            for (int j = length_Of_Y - 1; j >= 1; j--) {
-                if (table[i][j] == 1 && table[i][j - 1] == 2) {
+        for (int i = 0; i < table.getLength_Of_X(); i++)
+            for (int j = table.getLength_Of_Y() - 1; j >= 1; j--) {
+                if (table.valueInTableOf(i, j) == 1 && table.valueInTableOf(i, j - 1) == 2) {
                     return true;
                 }
             }
@@ -70,10 +67,11 @@ public class Table {
         return canMovePointLeft() && canPutPieceLeft();
     }
 
+
     //--------------------------------------------------------------------------Right
     protected boolean pieceInRightBorder() {
-        for (int i = 0; i < length_Of_X; i++) {
-            if (table[i][length_Of_Y - 1] == 1) {
+        for (int i = 0; i < table.getLength_Of_X(); i++) {
+            if (table.table[i][table.getLength_Of_Y() - 1] == 1) {
                 return true;
             }
         }
@@ -82,9 +80,9 @@ public class Table {
     }
 
     protected boolean otherPieceInRight() {
-        for (int i = 0; i < length_Of_X; i++)
-            for (int j = 0; j < length_Of_Y; j++) {
-                if (table[i][j] == 1 && table[i][j + 1] == 2) {
+        for (int i = 0; i < table.getLength_Of_X(); i++)
+            for (int j = 0; j < table.getLength_Of_Y(); j++) {
+                if (table.valueInTableOf(i, j) == 1 && table.valueInTableOf(i, j + 1) == 2) {
                     return true;
                 }
             }
@@ -97,7 +95,7 @@ public class Table {
     }
 
     protected boolean canMovePointRight() {
-        return point.getY_coordenade() + 1 < length_Of_Y;
+        return point.getY_coordenade() + 1 < table.getLength_Of_Y();
     }
 
     protected boolean canMoveRight() {
@@ -107,20 +105,18 @@ public class Table {
 
     //--------------------------------------------------------------------------Down
     protected boolean pieceInBotoom() {
-        for (int i = 0; i < length_Of_X; i++) {
-            for (int j = 0; j < length_Of_Y; j++) {
-                if (table[i][j] == 1 && i == length_Of_X - 1) {
-                    return true;
-                }
+        for (int j = 0; j < table.getLength_Of_Y(); j++) {
+            if (table.valueInTableOf(table.getLength_Of_X() - 1, j) == 1) {
+                return true;
             }
         }
         return false;
     }
 
     private boolean otherPieceDown() {
-        for (int i = 0; i < length_Of_X; i++)
-            for (int j = 0; j < length_Of_Y; j++) {
-                if (table[i][j] == 1 && table[i + 1][j] == 2) {
+        for (int i = 0; i < table.getLength_Of_X(); i++)
+            for (int j = 0; j < table.getLength_Of_Y(); j++) {
+                if (table.valueInTableOf(i, j) == 1 && table.valueInTableOf(i + 1, j) == 2) {
                     return true;
                 }
             }
@@ -133,7 +129,7 @@ public class Table {
     }
 
     protected boolean canMovePointDown() {
-        return point.getX_coordenade() + 1 < length_Of_X;
+        return point.getX_coordenade() + 1 < table.getLength_Of_X();
     }
 
     protected boolean canMoveDown() {
@@ -149,7 +145,7 @@ public class Table {
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
             for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
-                if (j >= length_Of_Y || j < 0 || i < 0 || i >= length_Of_X && aux.areTherePiece(printX, printY)) {
+                if (j >= table.getLength_Of_Y() || j < 0 || i < 0 || i >= table.getLength_Of_X() && aux.areTherePiece(printX, printY)) {
                     return true;
                 }
                 printY++;
@@ -166,7 +162,7 @@ public class Table {
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
             for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
-                if (table[i][j] == 2 && aux.areTherePiece(printX, printY)) {
+                if (table.valueInTableOf(i, j) == 2 && aux.areTherePiece(printX, printY)) {
                     return true;
                 }
                 printY++;
@@ -188,7 +184,7 @@ public class Table {
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
             for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
-                if (j >= length_Of_Y || j < 0 || i < 0 || i >= length_Of_X && aux.areTherePiece(printX, printY)) {
+                if (j >= table.getLength_Of_Y() || j < 0 || i < 0 || i >= table.getLength_Of_X() && aux.areTherePiece(printX, printY)) {
                     return true;
                 }
                 printY++;
@@ -202,10 +198,10 @@ public class Table {
         Piece aux = new Piece(piece.getPiece());
         aux.turnRight();
         int printX = 0;
-        for (int i = point.x_coordenade - 1; i <= point.x_coordenade + 1; i++) {
+        for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
-            for (int j = point.y_coordenade - 1; j <= point.y_coordenade + 1; j++) {
-                if (table[i][j] == 2 && aux.areTherePiece(printX, printY)) {
+            for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
+                if (table.valueInTableOf(i, j) == 2 && aux.areTherePiece(printX, printY)) {
                     return true;
                 }
                 printY++;
@@ -221,45 +217,14 @@ public class Table {
         return !areThereBorderR() && !areTherePieceR();
     }
 
-    //-----------------------------------------------------------------Put piece on the point
-    protected void printUnderPoint() {
-        reset();
-
-        int printX = 0;
-        for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
-            int printY = 0;
-            for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
-                if (piece.areTherePiece(printX, printY)) {
-                    table[i][j] = 1;
-                }
-                printY++;
-            }
-            printX++;
-        }
-    }
-
-
-    //--------------------------------------------------------------------Blocked piece
-
-    private void blockedPiece() {
-        for (int i = 0; i < length_Of_X; i++) {
-            for (int j = 0; j < length_Of_Y; j++) {
-                if (table[i][j] == 1) {
-                    table[i][j] = 2;
-                }
-            }
-        }
-        newPoint();
-    }
-
     //-------------------------------------------------------------------Look if Points
-    private boolean rowsFill() {
+    protected boolean rowsFill() {
         int count = 0;
-        for (int i = 0; i < length_Of_X; i++) {
-            for (int j = 0; j < length_Of_Y; j++) {
-                if (table[i][j] == 2) {
+        for (int i = 0; i < table.getLength_Of_X(); i++) {
+            for (int j = 0; j < table.getLength_Of_Y(); j++) {
+                if (table.valueInTableOf(i, j) == 2) {
                     count++;
-                    if (count == length_Of_Y) {
+                    if (count == table.getLength_Of_Y()) {
                         return true;
 
                     }
@@ -270,100 +235,59 @@ public class Table {
         return false;
     }
 
-    //-------------------------------------------------------------------Update Scoures
-    private void updatePoint() {
-        yourSoucre += 100;
-    }
 
-    //------------------------------------------------------------------Delete row
-    private void deleteRow(int x) {
-        for (int i = 0; i < length_Of_Y; i++) {
-            table[x][i] = 0;
-        }
-    }
-
-    private int searchRow() {
-        int rowX = 0;
-        int count = 0;
-        for (int i = 0; i < length_Of_X; i++) {
-            for (int j = 0; j < length_Of_Y; j++) {
-                if (table[i][j] == 2) {
-                    count++;
-                    if (count == length_Of_Y) {
-                        rowX = i;
-                        return rowX;
-                    }
-                }
-            }
-            count = 0;
-        }
-        return rowX;
-    }
-
-    private void dropPieces(int x) {
-        for (int i =x+1; i < 1; i--) {
-        for (int j = 0; j < length_Of_Y; j++) {
-                if (table[x][j] == 0&& table[x-1][j]==2) {
-                    table[x][j] = 2;
-                    table[x-1][j] = 0;
-
-                }
-            }
-        }
-    }
-
-    //-------------------------------------------------------------------Choose movement
     public void movedPoint(char boton) {
         switch (boton) {
             case 'a' -> {
                 if (canMoveLeft()) {
                     point.setY_coordenade(point.getY_coordenade() - 1);
-                    printUnderPoint();
+                    table.putPoint(point);
+                    table.printUnderPoint(piece);
                 }
 
             }
             case 's' -> {
                 if (canMoveDown()) {
                     point.setX_coordenade(point.getX_coordenade() + 1);
-                    printUnderPoint();
+                    table.putPoint(point);
+                    table.printUnderPoint(piece);
                 } else {
-                    blockedPiece();
-                    if (rowsFill()) {
-                        int rowFill = searchRow();
-                        deleteRow(rowFill);//eliminar linea entera bloqueada
-                        dropPieces(rowFill); //
-                        updatePoint();  //subir puntos
-                        System.out.println("Good, your scource is:  " + yourSoucre);
-                    }
+                    table.blockedPiece();
 
+                    if (rowsFill()) {
+                        table.refreshTable();
+                        updatePoint();
+                        System.out.println("Good, your scource is:  " + sources);
+                    }
+                    newPoint();
                 }
             }
             case 'd' -> {
                 if (canMoveRight()) {
                     point.setY_coordenade(point.getY_coordenade() + 1);
-                    printUnderPoint();
+                    table.putPoint(point);
+                    table.printUnderPoint(piece);
                 }
 
             }
             case 'e' -> {
                 if (canTurnRight()) {
                     piece.turnRight();
-                    printUnderPoint();
+                    table.printUnderPoint(piece);
                 }
             }
             case 'q' -> {
                 if (canTurnLeft()) {
                     piece.turnLeft();
-                    printUnderPoint();
+                    table.printUnderPoint(piece);
                 }
             }
         }
     }
 
-    //-------------------------------------------------------------------Print Table
     public void printTable() {
-        for (int[] ints : table) {
-            for (int j = 0; j < length_Of_Y; j++) {
+        for (int[] ints : table.table) {
+            for (int j = 0; j < table.getLength_Of_Y(); j++) {
                 if (ints[j] == 0) {
                     System.out.print('-');
                 }
@@ -379,4 +303,5 @@ public class Table {
             System.out.println();
         }
     }
+
 }

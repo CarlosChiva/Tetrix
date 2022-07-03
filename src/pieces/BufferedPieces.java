@@ -20,13 +20,8 @@ public class BufferedPieces {
     }
 
     public int[][] getPiece() {
-        int pieceRandom = (int) (Math.random() * pieces.size() + 1);
-        if (pieces.size() == 0)
-            fillList();
-
+        int pieceRandom = (int) (Math.random() * pieces.size()-1 + 1);
         int[][] piece = pieces.get(pieceRandom);
-
-        pieces.remove(pieceRandom);
         return piece;
 
     }

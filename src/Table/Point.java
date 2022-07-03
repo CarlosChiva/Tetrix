@@ -1,9 +1,11 @@
+package Table;
+
 public class Point {
     int x_coordenade;
     int y_coordenade;
-public Point(int x_coordenade, int y_coordenade){
-    this.x_coordenade=x_coordenade;
-    this.y_coordenade=y_coordenade;
+public Point(){
+    this.x_coordenade=1;
+    this.y_coordenade=5;
 }
     public int getX_coordenade() {
         return x_coordenade;
