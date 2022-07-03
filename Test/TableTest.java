@@ -3,6 +3,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pieces.L;
+import pieces.Piece;
 
 
 import java.awt.*;
@@ -15,7 +16,7 @@ class TableTest {
     L ele=new L();
     @BeforeEach
     void setUp() {
-    table=new Table(ele);
+    table=new Table(new Piece(ele));
 
     }
 

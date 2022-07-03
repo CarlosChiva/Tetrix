@@ -1,6 +1,6 @@
 package pieces;
 
-public class T {
+public class T extends Pieces {
     int[][] pieceT = new int[3][3];
     public T() {
     }

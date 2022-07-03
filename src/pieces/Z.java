@@ -1,8 +1,9 @@
 package pieces;
 
-public class Z {
+public class Z extends Pieces{
     int[][] pieceZ = new int[3][3];
     public Z() {
+
     }
     public int[][] getPieceZ() {
         pieceZ[2][0] = 1;

@@ -10,8 +10,6 @@ public class TableManager {
     int sources = 0;
     BufferedPieces bufferedPieces = new BufferedPieces();
     Piece piece;
-
-int lenghtYOfTable= table.getLength_Of_Y();
     public TableManager() {
         table = new Table();
         newPoint();

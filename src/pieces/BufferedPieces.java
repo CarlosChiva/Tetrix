@@ -1,27 +1,25 @@
 package pieces;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class BufferedPieces {
-    ArrayList<int[][]> pieces = new ArrayList<>();
+    ArrayList<Pieces> pieces = new ArrayList<>();
 
     public BufferedPieces() {
         fillList();
     }
 
     private void fillList() {
-        pieces.add(new T().getPieceT());
-        pieces.add(new L().getPieceL());
-        pieces.add(new Q().getPieceQ());
-        pieces.add(new Z().getPieceZ());
-        pieces.add(new S().getPieceS());
+        pieces.add(new T());
+        pieces.add(new L());
+        pieces.add(new Q());
+        pieces.add(new Z());
+        pieces.add(new S());
 
     }
 
-    public int[][] getPiece() {
+    public Pieces getPiece() {
         int pieceRandom = (int) (Math.random() * pieces.size()-1 + 1);
-        int[][] piece = pieces.get(pieceRandom);
+        Pieces piece = pieces.get(pieceRandom);
         return piece;
 
     }

@@ -2,6 +2,7 @@ package Table;
 
 import pieces.L;
 import pieces.Piece;
+import pieces.Pieces;
 
 //0 empty
 //1 piece
@@ -24,10 +25,10 @@ public class Table {
     public Table() {
     }
 
-    public Table(L piece) {
+    public Table(Piece piece) {
         pointXCoordenade = 1;
         pointYcoordenade = 5;
-        this.piece = new Piece(piece.getPieceL());
+        this.piece = new Piece(new L());
 
         printUnderPoint(this.piece);
     }
