@@ -1,15 +1,16 @@
 package pieces;
 
 public class T extends Pieces {
-    int[][] pieceT = new int[3][3];
+
     public T() {
+        setArray(getPieceT());
     }
     public int[][] getPieceT() {
-        pieceT[0][0] = 1;
-        pieceT[0][1] = 1;
-        pieceT[0][2] = 1;
-        pieceT[1][1] = 1;
+        piece[0][0] = 1;
+        piece[0][1] = 1;
+        piece[0][2] = 1;
+        piece[1][1] = 1;
 
-        return pieceT;
+        return piece;
     }
 }

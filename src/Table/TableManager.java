@@ -3,27 +3,32 @@ package Table;
 
 import pieces.BufferedPieces;
 import pieces.Piece;
+import pieces.PieceDecorator;
+
 
 public class TableManager {
     Table table;
     Point point;
-    int sources = 0;
     BufferedPieces bufferedPieces = new BufferedPieces();
+    int sources = 0;
     Piece piece;
+    PieceDecorator aux;
+    Table aux1;
+
     public TableManager() {
         table = new Table();
         newPoint();
-
+        newPiece();
     }
 
     protected void newPoint() {
         this.point = new Point();
         table.putPoint(point);
-        newPiece();
+
     }
 
     private void newPiece() {
-        piece = new Piece(bufferedPieces.getPiece());
+        this.piece = new Piece(bufferedPieces.getPiece());
         table.printUnderPoint(piece);
 
     }
@@ -135,15 +140,15 @@ public class TableManager {
     }
 
     //---------------------------------------------------------------------------Turn Piece
-    //-----------------------------------------------------------------TurnLeft
-    protected boolean areThereBorderL() {
-        Piece aux = new Piece(piece.getPiece());
+
+    protected boolean areTherePiece() {
+        aux = new PieceDecorator(piece.getPiece());
         aux.turnLeft();
         int printX = 0;
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
             for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
-                if (j >= table.getLength_Of_Y() || j < 0 || i < 0 || i >= table.getLength_Of_X() && aux.areTherePiece(printX, printY)) {
+                if (table.valueInTableOf(i, j) == 2 && aux.areTherePiece(printX, printY)) {
                     return true;
                 }
                 printY++;
@@ -153,14 +158,16 @@ public class TableManager {
         return false;
     }
 
-    protected boolean areTherePieceL() {
-        Piece aux = new Piece(piece.getPiece());
+
+    //-----------------------------------------------------------------TurnLeft
+    protected boolean areThereBorderL() {
+        aux = new PieceDecorator(piece.getPiece());
         aux.turnLeft();
         int printX = 0;
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
             for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
-                if (table.valueInTableOf(i, j) == 2 && aux.areTherePiece(printX, printY)) {
+                if (j >= table.getLength_Of_Y() || j < 0 || i < 0 || i >= table.getLength_Of_X() && aux.areTherePiece(printX, printY)) {
                     return true;
                 }
                 printY++;
@@ -171,12 +178,12 @@ public class TableManager {
     }
 
     protected boolean canTurnLeft() {
-        return !areThereBorderL() && !areTherePieceL();
+        return !areThereBorderL() && !areTherePiece();
     }
 
     //----------------------------------------------------------------Turn Right
     protected boolean areThereBorderR() {
-        Piece aux = new Piece(piece.getPiece());
+        aux = new PieceDecorator(piece.getPiece());
         aux.turnRight();
         int printX = 0;
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
@@ -192,27 +199,8 @@ public class TableManager {
         return false;
     }
 
-    protected boolean areTherePieceR() {
-        Piece aux = new Piece(piece.getPiece());
-        aux.turnRight();
-        int printX = 0;
-        for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
-            int printY = 0;
-            for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
-                if (table.valueInTableOf(i, j) == 2 && aux.areTherePiece(printX, printY)) {
-                    return true;
-                }
-                printY++;
-            }
-            printX++;
-        }
-
-
-        return false;
-    }
-
     protected boolean canTurnRight() {
-        return !areThereBorderR() && !areTherePieceR();
+        return !areThereBorderR() && !areTherePiece();
     }
 
     //-------------------------------------------------------------------Look if Points
@@ -258,6 +246,7 @@ public class TableManager {
                         System.out.println("Good, your scource is:  " + sources);
                     }
                     newPoint();
+                    newPiece();
                 }
             }
             case 'd' -> {

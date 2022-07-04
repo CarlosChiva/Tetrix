@@ -1,17 +1,18 @@
 package pieces;
 
 public class Q extends Pieces {
-    int[][] pieceQ = new int[3][3];
+
 
     public Q() {
+        setArray(getPieceQ());
     }
 
     public int[][] getPieceQ() {
-        pieceQ[0][0] = 1;
-        pieceQ[1][0] = 1;
-        pieceQ[0][1] = 1;
-        pieceQ[1][1] = 1;
+        piece[0][0] = 1;
+        piece[1][0] = 1;
+        piece[0][1] = 1;
+        piece[1][1] = 1;
 
-        return pieceQ;
+        return piece;
     }
 }
