@@ -18,4 +18,5 @@ public class Pieces implements IPieces {
     public void setArray(int[][] array) {
         piece = array;
     }
+
 }

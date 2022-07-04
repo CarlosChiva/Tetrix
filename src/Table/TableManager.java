@@ -3,7 +3,6 @@ package Table;
 
 import pieces.BufferedPieces;
 import pieces.Piece;
-import pieces.PieceDecorator;
 
 
 public class TableManager {
@@ -12,8 +11,8 @@ public class TableManager {
     BufferedPieces bufferedPieces = new BufferedPieces();
     int sources = 0;
     Piece piece;
-    PieceDecorator aux;
-    Table aux1;
+    Piece aux;
+
 
     public TableManager() {
         table = new Table();
@@ -37,74 +36,53 @@ public class TableManager {
         sources += 100;
     }
 
-    //--------------------------------------------------------------------------Left
-    protected boolean canMovePointLeft() {
-        return point.getY_coordenade() - 1 >= 0;
-    }
+    //--------------------------------------------------------------------------Move
+    protected boolean canMovePoint(Enum move) {
+        if (move == Enum.LEFT) {
+            return point.getY_coordenade() - 1 >= 0;
+        }
+        if (move == Enum.RIGHT) {
+            return point.getY_coordenade() + 1 < table.getLength_Of_Y();
+        }
+        return point.getX_coordenade() + 1 < table.getLength_Of_X();
 
-    protected boolean pieceInLeftBorder() {
+    }
+    protected boolean pieceInBorder(Enum move) {
         for (int[] ints : table.table) {
-            if (ints[0] == 1) {
-                return true;
+            if (move == Enum.RIGHT) {
+                if (ints[table.getLength_Of_Y() - 1] == 1) {
+                    return true;
+                }
+            } else {
+                if (ints[0] == 1) {
+                    return true;
+                }
             }
         }
         return false;
     }
-
-    protected boolean otherPieceInLeft() {
+    protected boolean otherPiece(Enum move) {
         for (int i = 0; i < table.getLength_Of_X(); i++)
             for (int j = table.getLength_Of_Y() - 1; j >= 1; j--) {
-                if (table.valueInTableOf(i, j) == 1 && table.valueInTableOf(i, j - 1) == 2) {
-                    return true;
+                if (move == Enum.LEFT) {
+                    if (table.valueInTableOf(i, j) == 1 && table.valueInTableOf(i, j - 1) == 2) {
+                        return true;
+                    }
+                } else {
+                    if (table.valueInTableOf(i, j) == 1 && table.valueInTableOf(i, j + 1) == 2) {
+                        return true;
+                    }
                 }
             }
 
         return false;
     }
-
-    protected boolean canPutPieceLeft() {
-        return !pieceInLeftBorder() && !otherPieceInLeft();
+    protected boolean canPutPiece(Enum move) {
+        return !pieceInBorder(move) && !otherPiece(move);
     }
-
-    protected boolean canMoveLeft() {
-        return canMovePointLeft() && canPutPieceLeft();
+    protected boolean canMove(Enum move) {
+        return canMovePoint(move) && canPutPiece(move);
     }
-
-
-    //--------------------------------------------------------------------------Right
-    protected boolean pieceInRightBorder() {
-        for (int i = 0; i < table.getLength_Of_X(); i++) {
-            if (table.table[i][table.getLength_Of_Y() - 1] == 1) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    protected boolean otherPieceInRight() {
-        for (int i = 0; i < table.getLength_Of_X(); i++)
-            for (int j = 0; j < table.getLength_Of_Y(); j++) {
-                if (table.valueInTableOf(i, j) == 1 && table.valueInTableOf(i, j + 1) == 2) {
-                    return true;
-                }
-            }
-
-        return false;
-    }
-
-    protected boolean canPutPieceRight() {
-        return !pieceInRightBorder() && !otherPieceInRight();
-    }
-
-    protected boolean canMovePointRight() {
-        return point.getY_coordenade() + 1 < table.getLength_Of_Y();
-    }
-
-    protected boolean canMoveRight() {
-        return canMovePointRight() && canPutPieceRight();
-    }
-
 
     //--------------------------------------------------------------------------Down
     protected boolean pieceInBotoom() {
@@ -131,19 +109,19 @@ public class TableManager {
         return !pieceInBotoom() && !otherPieceDown();
     }
 
-    protected boolean canMovePointDown() {
-        return point.getX_coordenade() + 1 < table.getLength_Of_X();
-    }
-
     protected boolean canMoveDown() {
-        return canMovePointDown() && canPutPiecedown();
+        return canMovePoint(Enum.DOWN) && canPutPiecedown();
     }
 
     //---------------------------------------------------------------------------Turn Piece
 
-    protected boolean areTherePiece() {
-        aux = new PieceDecorator(piece.getPiece());
-        aux.turnLeft();
+    protected boolean areTherePiece(Enum turn) {
+        aux = new Piece(piece.newPiece());
+        if (turn == Enum.TURNLEFT) {
+            aux.turnLeft();
+        } else {
+            aux.turnRight();
+        }
         int printX = 0;
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
@@ -174,8 +152,8 @@ public class TableManager {
     }
 
 
-    protected boolean canTurn() {
-        return !areThereBorder() && !areTherePiece();
+    protected boolean canTurn(Enum turn) {
+        return !areThereBorder() && !areTherePiece(turn);
     }
 
     //-------------------------------------------------------------------Look if Points
@@ -196,18 +174,36 @@ public class TableManager {
         return false;
     }
 
+    private Enum traductor(char choose) {
+        if (choose == 'a') {
+            return Enum.LEFT;
+        }
+        if (choose == 's') {
+            return Enum.DOWN;
+        }
+        if (choose == 'd') {
+            return Enum.RIGHT;
+        }
+        if (choose == 'e') {
+            return Enum.TURNRIGHT;
+        }
+        if (choose == 'q') {
+            return Enum.TURNLEFT;
+        }
+        return Enum.ERROR;
+    }
 
     public void movedPoint(char boton) {
-        switch (boton) {
-            case 'a' -> {
-                if (canMoveLeft()) {
+        switch (traductor(boton)) {
+            case LEFT -> {
+                if (canMove(Enum.LEFT)) {
                     point.setY_coordenade(point.getY_coordenade() - 1);
                     table.putPoint(point);
                     table.printUnderPoint(piece);
                 }
 
             }
-            case 's' -> {
+            case DOWN -> {
                 if (canMoveDown()) {
                     point.setX_coordenade(point.getX_coordenade() + 1);
                     table.putPoint(point);
@@ -224,22 +220,22 @@ public class TableManager {
                     newPiece();
                 }
             }
-            case 'd' -> {
-                if (canMoveRight()) {
+            case RIGHT -> {
+                if (canMove(Enum.RIGHT)) {
                     point.setY_coordenade(point.getY_coordenade() + 1);
                     table.putPoint(point);
                     table.printUnderPoint(piece);
                 }
 
             }
-            case 'e' -> {
-                if (canTurn()) {
+            case TURNRIGHT -> {
+                if (canTurn(Enum.TURNRIGHT)) {
                     piece.turnRight();
                     table.printUnderPoint(piece);
                 }
             }
-            case 'q' -> {
-                if (canTurn()) {
+            case TURNLEFT -> {
+                if (canTurn(Enum.TURNLEFT)) {
                     piece.turnLeft();
                     table.printUnderPoint(piece);
                 }

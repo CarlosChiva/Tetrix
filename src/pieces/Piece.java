@@ -14,10 +14,10 @@ public Piece(Pieces piece){
     public Pieces getPiece() {
         return piece;
     }
-public int[][] getArray(){
-    return piece.piece;
-}
 
+    public Pieces newPiece(){
+        return new Pieces(piece.piece);
+    }
     public boolean areTherePiece(int xCoordenade, int yCoordenade) {
         return piece.getValuesArray(xCoordenade, yCoordenade)== 1;
     }

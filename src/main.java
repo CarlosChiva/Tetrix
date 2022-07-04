@@ -1,9 +1,12 @@
 
+
 import Table.TableManager;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class main {
+
     public static void main(String[] args) {
         TableManager tableManager = new TableManager();
         Scanner scn = new Scanner(System.in);
@@ -11,9 +14,9 @@ public class main {
         tableManager.printTable();
         do {
             System.out.println("-------------------------");
-
             String chose = scn.next();
-            char[] choose = chose.toCharArray();
+            String generalice=chose.toLowerCase(Locale.ROOT);
+            char[] choose = generalice.toCharArray();
             chos = choose[0];
             tableManager.movedPoint(chos);
             tableManager.printTable();
