@@ -158,11 +158,7 @@ public class TableManager {
         return false;
     }
 
-
-    //-----------------------------------------------------------------TurnLeft
-    protected boolean areThereBorderL() {
-        aux = new PieceDecorator(piece.getPiece());
-        aux.turnLeft();
+    protected boolean areThereBorder() {
         int printX = 0;
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
@@ -177,30 +173,9 @@ public class TableManager {
         return false;
     }
 
-    protected boolean canTurnLeft() {
-        return !areThereBorderL() && !areTherePiece();
-    }
 
-    //----------------------------------------------------------------Turn Right
-    protected boolean areThereBorderR() {
-        aux = new PieceDecorator(piece.getPiece());
-        aux.turnRight();
-        int printX = 0;
-        for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
-            int printY = 0;
-            for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
-                if (j >= table.getLength_Of_Y() || j < 0 || i < 0 || i >= table.getLength_Of_X() && aux.areTherePiece(printX, printY)) {
-                    return true;
-                }
-                printY++;
-            }
-            printX++;
-        }
-        return false;
-    }
-
-    protected boolean canTurnRight() {
-        return !areThereBorderR() && !areTherePiece();
+    protected boolean canTurn() {
+        return !areThereBorder() && !areTherePiece();
     }
 
     //-------------------------------------------------------------------Look if Points
@@ -258,13 +233,13 @@ public class TableManager {
 
             }
             case 'e' -> {
-                if (canTurnRight()) {
+                if (canTurn()) {
                     piece.turnRight();
                     table.printUnderPoint(piece);
                 }
             }
             case 'q' -> {
-                if (canTurnLeft()) {
+                if (canTurn()) {
                     piece.turnLeft();
                     table.printUnderPoint(piece);
                 }
