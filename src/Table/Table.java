@@ -2,7 +2,7 @@ package Table;
 
 import pieces.L;
 import pieces.Piece;
-import pieces.Pieces;
+
 
 //0 empty
 //1 piece
@@ -13,7 +13,14 @@ public class Table {
     int[][] table = new int[lenghtX][lenghtY];
     int pointXCoordenade;
     int pointYcoordenade;
-    Piece piece;
+
+    public int getPointXCoordenade() {
+        return pointXCoordenade;
+    }
+
+    public int getPointYcoordenade() {
+        return pointYcoordenade;
+    }
 
     public int getLength_Of_Y() {
         return lenghtY;
@@ -30,8 +37,7 @@ public class Table {
     public Table(Piece piece) {
         pointXCoordenade = 1;
         pointYcoordenade = 5;
-        this.piece = piece;
-        printUnderPoint(this.piece);
+        printUnderPoint(piece);
     }
 
     public void reset() {

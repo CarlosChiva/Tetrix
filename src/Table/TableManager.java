@@ -8,16 +8,22 @@ import pieces.Piece;
 public class TableManager {
     Table table;
     Point point;
-    BufferedPieces bufferedPieces = new BufferedPieces();
-    int sources = 0;
+    BufferedPieces bufferedPieces;
     Piece piece;
-    Piece aux;
-
+    int sources = 0;
 
     public TableManager() {
+        bufferedPieces = new BufferedPieces();
         table = new Table();
         newPoint();
         newPiece();
+    }
+
+    public TableManager(Piece piece) {
+        table = new Table();
+        newPoint();
+        this.piece = piece;
+        table.printUnderPoint(piece);
     }
 
     protected void newPoint() {
@@ -47,6 +53,7 @@ public class TableManager {
         return point.getX_coordenade() + 1 < table.getLength_Of_X();
 
     }
+
     protected boolean pieceInBorder(Enum move) {
         for (int[] ints : table.table) {
             if (move == Enum.RIGHT) {
@@ -61,11 +68,12 @@ public class TableManager {
         }
         return false;
     }
+
     protected boolean otherPiece(Enum move) {
         for (int i = 0; i < table.getLength_Of_X(); i++)
-            for (int j = table.getLength_Of_Y() - 1; j >= 1; j--) {
+            for (int j = 0; j < table.getLength_Of_Y() - 1; j++) {
                 if (move == Enum.LEFT) {
-                    if (table.valueInTableOf(i, j) == 1 && table.valueInTableOf(i, j - 1) == 2) {
+                    if (table.valueInTableOf(i, j) == 2 && table.valueInTableOf(i, j + 1) == 1) {
                         return true;
                     }
                 } else {
@@ -77,9 +85,11 @@ public class TableManager {
 
         return false;
     }
+
     protected boolean canPutPiece(Enum move) {
         return !pieceInBorder(move) && !otherPiece(move);
     }
+
     protected boolean canMove(Enum move) {
         return canMovePoint(move) && canPutPiece(move);
     }
@@ -94,7 +104,7 @@ public class TableManager {
         return false;
     }
 
-    private boolean otherPieceDown() {
+    protected boolean otherPieceDown() {
         for (int i = 0; i < table.getLength_Of_X(); i++)
             for (int j = 0; j < table.getLength_Of_Y(); j++) {
                 if (table.valueInTableOf(i, j) == 1 && table.valueInTableOf(i + 1, j) == 2) {
@@ -116,7 +126,7 @@ public class TableManager {
     //---------------------------------------------------------------------------Turn Piece
 
     protected boolean areTherePiece(Enum turn) {
-        aux = new Piece(piece.newPiece());
+        Piece aux = new Piece(piece.newPiece());
         if (turn == Enum.TURNLEFT) {
             aux.turnLeft();
         } else {
@@ -137,6 +147,7 @@ public class TableManager {
     }
 
     protected boolean areThereBorder() {
+        Piece aux = new Piece(piece.newPiece());
         int printX = 0;
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
@@ -217,7 +228,7 @@ public class TableManager {
                         System.out.println("Good, your scource is:  " + sources);
                     }
                     newPoint();
-                    newPiece();
+
                 }
             }
             case RIGHT -> {
@@ -261,5 +272,4 @@ public class TableManager {
             System.out.println();
         }
     }
-
 }
