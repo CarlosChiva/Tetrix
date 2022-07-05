@@ -4,66 +4,37 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import static Menu.MenuEnums.*;
+import java.util.ArrayList;
 
 public class Menu extends JFrame {
     JPanel panel = new JPanel();
+    ArrayList<Component> arrayList = new ArrayList<>();
 
     public Menu() {
+        setTitle("MainMenu");
+        MainMenu mainMenu = new MainMenu();
         setSize(500, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-        loadMainPanel();
-        loadComponentsFirstWindow();
-
+        iniciarPanel();
+        arrayList.add(mainMenu.firstText());
+        arrayList.add(mainMenu.StartGameButton());
+        arrayList.add(mainMenu.LoadGameButton());
+        arrayList.add(mainMenu.ViewRankingButton());
+        put();
     }
 
-    public void loadMainPanel() {
-        panel = new JPanel();
-        this.getContentPane().add(panel);
-        panel.setLayout(null);
-    }
-
-    public void load(Enum enums) {
-        if (enums == PRINCIPAL) {
-            loadMainPanel();
-        } else if (enums == RANKING) {
-            // loadRankingMenu();
-        } else if (enums == LOADGAME) {
-            //loadLoadGame();
-        } else if (enums == STARTGAME) {
-            //loadGameMenu();
-        } else if (enums == BACK) {
-            loadMainPanel();
+    private void put() {
+        for (Component compo : arrayList) {
+            panel.add(compo);
         }
     }
-
-    public void loadComponentsFirstWindow() {
-        JLabel etiqueta = new JLabel();
-        etiqueta.setText("Hi Gamer \n  What do you want?");
-        etiqueta.setBounds(150, 100, 200, 100);
-        etiqueta.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(etiqueta);
-        loadButtonOfFirstWindow();
-    }
-
-    public void loadButtonOfFirstWindow() {
-        StartGame startGame = new StartGame();
-        LoadGame loadGame = new LoadGame();
-        ViewRanking viewRanking = new ViewRanking();
-        Back back = new Back();
-        panel.add(startGame.getStartGame());
-        panel.add(loadGame.getLoadGame());
-        panel.add(viewRanking.getViewRanking());
-        panel.add(back.getBack());
-    }
-
-    private void loadListener(Button button) {
-        MouseListener mouseListener = new MouseListener() {
+    private void listener(){
+        arrayList.get(0);
+        MouseListener mouseListener=new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                System.out.println("dsgdfgdsf");
             }
 
             @Override
@@ -86,8 +57,23 @@ public class Menu extends JFrame {
 
             }
         };
-        button.addMouseListener(mouseListener);
+        arrayList.get(0).add((PopupMenu) mouseListener);
     }
+
+    public Menu(Window window) {
+        panel = new JPanel();
+        setSize(500, 500);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        iniciarPanel();
+
+    }
+
+    private void iniciarPanel() {
+        panel = new JPanel();
+        this.getContentPane().add(panel);
+        panel.setLayout(null);
+
+    }
+
 }
-
-
