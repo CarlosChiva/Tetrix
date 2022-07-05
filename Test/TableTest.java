@@ -1,9 +1,9 @@
+import Game.pieces.Pieces.L;
 import Table.Table;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pieces.L;
-import pieces.Piece;
+import Table.Piece;
 import java.awt.*;
 import static Enum.Enum.*;
 

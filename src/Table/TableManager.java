@@ -1,8 +1,7 @@
 package Table;
 
 import  Enum.Enum;
-import pieces.BufferedPieces;
-import pieces.Piece;
+import Game.pieces.BufferedPieces;
 
 import static Enum.Enum.*;
 

@@ -1,6 +1,5 @@
 package Table;
 
-import pieces.Piece;
 import Enum.Enum;
 import static Enum.Enum.*;
 

@@ -1,9 +1,10 @@
-package pieces;
+package Game.pieces;
+import Game.pieces.Pieces.*;
 
 import java.util.ArrayList;
 
 public class BufferedPieces {
-    static ArrayList<Pieces> pieces = new ArrayList<>();
+    static ArrayList<TablePiece> pieces = new ArrayList<>();
 
     public BufferedPieces() {
         fillList();
@@ -18,7 +19,7 @@ public class BufferedPieces {
 
     }
 
-    public Pieces getPiece() {
+    public TablePiece getPiece() {
 
         return pieces.get((int) (Math.random() * pieces.size()));
     }

@@ -1,12 +1,13 @@
-package pieces;
+package Table;
 import Enum.Enum;
+import Game.pieces.TablePiece;
 
 import static Enum.Enum.*;
 
 public class Piece {
-    Pieces piece;
+    TablePiece piece;
 
-public Piece(Pieces piece){
+public Piece(TablePiece piece){
     this.piece=piece;
 }
 
@@ -14,12 +15,12 @@ public Piece(Pieces piece){
         this.piece.setArray(array);
     }
 
-    public Pieces getPiece() {
+    public TablePiece getPiece() {
         return piece;
     }
 
-    public Pieces newPiece(){
-        return new Pieces(piece.piece);
+    public TablePiece newPiece(){
+        return new TablePiece(piece.piece);
     }
     public boolean areTherePiece(int xCoordenade, int yCoordenade) {
         return piece.getValuesArray(xCoordenade, yCoordenade)== CURRENTPIECE;

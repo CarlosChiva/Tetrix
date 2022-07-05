@@ -1,8 +1,10 @@
-package pieces;
+package Game.pieces.Pieces;
 import Enum.Enum;
+import Game.pieces.TablePiece;
+
 import static Enum.Enum.*;
 
-public class T extends Pieces {
+public class T extends TablePiece {
 
     public T() {
         setArray(getPieceT());

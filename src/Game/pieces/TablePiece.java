@@ -1,15 +1,15 @@
-package pieces;
+package Game.pieces;
 
 import Enum.Enum;
 
-public class Pieces implements IPieces {
-    Enum[][] piece = new Enum[3][3];
+public class TablePiece implements IPieces {
+    public Enum[][] piece = new Enum[3][3];
 
-    public Pieces(Enum[][] piece) {
+    public TablePiece(Enum[][] piece) {
         this.piece = piece;
     }
 
-    public Pieces() {
+    public TablePiece() {
     }
     @Override
     public Enum getValuesArray(int x, int y) {

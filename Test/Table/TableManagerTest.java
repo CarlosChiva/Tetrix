@@ -1,9 +1,9 @@
 package Table;
 
+import Game.pieces.Pieces.T;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pieces.Piece;
-import pieces.T;
+
 import static Enum.Enum.*;
 import static org.junit.jupiter.api.Assertions.*;
 
