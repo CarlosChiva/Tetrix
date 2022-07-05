@@ -8,13 +8,13 @@ import static Enum.Enum.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TableManagerTest {
-    TableManager tableManager;
+    TableManagerMock tableManager;
     T pieze = new T();
     Piece piece = new Piece(pieze);
 
     @BeforeEach
     void setUp() {
-        tableManager = new TableManager(piece);
+        tableManager = new TableManagerMock(piece);
     }
 
     @Test

@@ -1,29 +1,32 @@
 package Table;
 
-import Enum.Enum;
 import Game.pieces.BufferedPieces;
 
 import static Enum.Enum.*;
+import static Enum.Enum.BLOCKEDPIECE;
+
+import Enum.Enum;
 
 
-public class TableManager {
+public class TableManagerMock {
     Table table;
     Point point;
     BufferedPieces bufferedPieces;
     Piece piece;
     int sources = 0;
 
-    public TableManager() {
-        bufferedPieces = new BufferedPieces();
+    public TableManagerMock(Piece piece) {
         table = new Table();
         newPoint();
-
+        this.piece = piece;
+        areTherePiece(ERROR);
+        table.printUnderPoint(piece);
     }
 
     protected void newPoint() {
         this.point = new Point();
         table.putPoint(point);
-        newPiece();
+
     }
 
     private void newPiece() {
@@ -277,3 +280,5 @@ public class TableManager {
         }
     }
 }
+
+

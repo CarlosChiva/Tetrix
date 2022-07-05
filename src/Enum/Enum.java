@@ -10,5 +10,7 @@ public enum Enum {
     EMPTY,
     CURRENTPIECE,
     BLOCKEDPIECE,
+    NEWGAME,
+    LOADGAMESAVED,
 
 }
