@@ -1,6 +1,7 @@
 package Menu;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -33,6 +34,8 @@ public class Menu extends JFrame {
             //loadLoadGame();
         } else if (enums == STARTGAME) {
             //loadGameMenu();
+        } else if (enums == BACK) {
+            loadMainPanel();
         }
     }
 
@@ -49,10 +52,42 @@ public class Menu extends JFrame {
         StartGame startGame = new StartGame();
         LoadGame loadGame = new LoadGame();
         ViewRanking viewRanking = new ViewRanking();
+        Back back = new Back();
         panel.add(startGame.getStartGame());
         panel.add(loadGame.getLoadGame());
         panel.add(viewRanking.getViewRanking());
-
+        panel.add(back.getBack());
     }
 
+    private void loadListener(Button button) {
+        MouseListener mouseListener = new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        };
+        button.addMouseListener(mouseListener);
+    }
 }
+
+
