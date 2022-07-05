@@ -1,6 +1,8 @@
 package pieces;
 
+import Enum.Enum;
+
 public interface IPieces {
-    public int getValuesArray(int x, int y);
-    public void setArray(int [][] array);
+     Enum getValuesArray(int x, int y);
+     void setArray(Enum [][] array);
 }

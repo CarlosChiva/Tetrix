@@ -1,4 +1,7 @@
 package pieces;
+import Enum.Enum;
+
+import static Enum.Enum.*;
 
 public class Piece {
     Pieces piece;
@@ -7,8 +10,8 @@ public Piece(Pieces piece){
     this.piece=piece;
 }
 
-    public void setPieceArray(int[][]array) {
-        this.piece.setArray(array);;
+    public void setPieceArray(Enum[][]array) {
+        this.piece.setArray(array);
     }
 
     public Pieces getPiece() {
@@ -19,12 +22,12 @@ public Piece(Pieces piece){
         return new Pieces(piece.piece);
     }
     public boolean areTherePiece(int xCoordenade, int yCoordenade) {
-        return piece.getValuesArray(xCoordenade, yCoordenade)== 1;
+        return piece.getValuesArray(xCoordenade, yCoordenade)== CURRENTPIECE;
     }
 
     public void turnRight() {
 
-        int[][] aux = new int[3][3];
+        Enum[][] aux = new Enum[3][3];
         aux[0][2] = piece.getValuesArray(0,0);
         aux[0][1] = piece.getValuesArray(1,0);
         aux[0][0] = piece.getValuesArray(2,0);
@@ -38,7 +41,7 @@ public Piece(Pieces piece){
     }
 
     public void turnLeft() {
-        int[][] aux = new int[3][3];
+        Enum[][] aux = new Enum[3][3];
         aux[0][0] = piece.getValuesArray(0,2);
         aux[1][0] = piece.getValuesArray(0,1);
         aux[2][0] = piece.getValuesArray(0,0);

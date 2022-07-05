@@ -1,26 +1,14 @@
 package Table;
 
-import pieces.L;
 import pieces.Piece;
+import Enum.Enum;
+import static Enum.Enum.*;
 
-
-//0 empty
-//1 piece
-//2 piece blocked
 public class Table {
-    private int lenghtX = 9;
-    private int lenghtY = 12;
-    int[][] table = new int[lenghtX][lenghtY];
-    int pointXCoordenade;
-    int pointYcoordenade;
-
-    public int getPointXCoordenade() {
-        return pointXCoordenade;
-    }
-
-    public int getPointYcoordenade() {
-        return pointYcoordenade;
-    }
+    private final int lenghtX = 9;
+    private final int lenghtY = 12;
+    Enum[][] table = new Enum[lenghtX][lenghtY];
+    Point point;
 
     public int getLength_Of_Y() {
         return lenghtY;
@@ -32,36 +20,44 @@ public class Table {
 
 
     public Table() {
+        fillTable();
     }
 
     public Table(Piece piece) {
-        pointXCoordenade = 1;
-        pointYcoordenade = 5;
+        fillTable();
+        point = new Point();
         printUnderPoint(piece);
+    }
+
+    private void fillTable() {
+        for (int i = 0; i < getLength_Of_X(); i++) {
+            for (int j = 0; j < getLength_Of_Y(); j++) {
+                table[i][j] = EMPTY;
+            }
+        }
     }
 
     public void reset() {
         for (int i = 0; i < getLength_Of_X(); i++) {
             for (int j = 0; j < getLength_Of_Y(); j++) {
-                if (table[i][j] == 1) {
-                    table[i][j] = 0;
+                if (table[i][j] == CURRENTPIECE) {
+                    table[i][j] = EMPTY;
                 }
             }
         }
     }
 
-    public void setTable(int x, int y, int newValue) {
-        table[x][y] = newValue;
+    public void setTable(int x, int y, Enum newEnum) {
+        table[x][y] = newEnum;
     }
 
     public void putPoint(Point point) {
         reset();
-        pointXCoordenade = point.getX_coordenade();
-        pointYcoordenade = point.getY_coordenade();
+        this.point = point;
 
     }
 
-    public int valueInTableOf(int x, int y) {
+    public Enum valueInTableOf(int x, int y) {
         return table[x][y];
     }
 
@@ -69,12 +65,11 @@ public class Table {
     protected void printUnderPoint(Piece piece) {
         reset();
         int printX = 0;
-        for (int i = pointXCoordenade - 1; i <= pointXCoordenade + 1; i++) {
+        for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
-            for (int j = pointYcoordenade - 1; j <= pointYcoordenade + 1; j++) {
+            for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
                 if (piece.areTherePiece(printX, printY) && i < getLength_Of_X() && j < getLength_Of_Y()) {
-                    setTable(i, j, 1);
-
+                    setTable(i, j, CURRENTPIECE);
                 }
                 printY++;
             }
@@ -86,8 +81,8 @@ public class Table {
     protected void blockedPiece() {
         for (int i = 0; i < getLength_Of_X(); i++) {
             for (int j = 0; j < getLength_Of_Y(); j++) {
-                if (valueInTableOf(i, j) == 1) {
-                    setTable(i, j, 2);
+                if (valueInTableOf(i, j) == CURRENTPIECE) {
+                    setTable(i, j, BLOCKEDPIECE);
 
                 }
             }
@@ -97,7 +92,7 @@ public class Table {
     //------------------------------------------------------------------Delete row
     private void deleteRow(int x) {
         for (int i = 0; i < getLength_Of_Y(); i++) {
-            setTable(x, i, 0);
+            setTable(x, i, EMPTY);
         }
     }
 
@@ -105,7 +100,7 @@ public class Table {
         int count = 0;
         for (int i = 0; i < getLength_Of_X(); i++) {
             for (int j = 0; j < getLength_Of_Y(); j++) {
-                if (valueInTableOf(i, j) == 2) {
+                if (valueInTableOf(i, j) == BLOCKEDPIECE) {
                     count++;
                     if (count == getLength_Of_Y()) {
                         deleteRow(i);
@@ -125,7 +120,7 @@ public class Table {
                 setTable(i, j, valueInTableOf(i - 1, j));
             }
 
-            setTable(0, j, 0);
+            setTable(0, j, EMPTY);
         }
 
     }

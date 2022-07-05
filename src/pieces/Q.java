@@ -1,4 +1,6 @@
 package pieces;
+import Enum.Enum;
+import static Enum.Enum.*;
 
 public class Q extends Pieces {
 
@@ -7,11 +9,11 @@ public class Q extends Pieces {
         setArray(getPieceQ());
     }
 
-    public int[][] getPieceQ() {
-        piece[0][0] = 1;
-        piece[1][0] = 1;
-        piece[0][1] = 1;
-        piece[1][1] = 1;
+    public Enum[][] getPieceQ() {
+        piece[0][0] = CURRENTPIECE;
+        piece[1][0] = CURRENTPIECE;
+        piece[0][1] = CURRENTPIECE;
+        piece[1][1] = CURRENTPIECE;
 
         return piece;
     }

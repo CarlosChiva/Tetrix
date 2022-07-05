@@ -4,9 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pieces.L;
 import pieces.Piece;
-
-
 import java.awt.*;
+import static Enum.Enum.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,7 +13,7 @@ class TableTest {
 
     Table table;
     L ele = new L();
-    Point point;
+
 
     @BeforeEach
     void setUp() {
@@ -28,12 +27,12 @@ class TableTest {
 
     @Test
     void xLength() {
-        assertTrue(table.getLength_Of_X() == 9);
+        assertEquals(9, table.getLength_Of_X());
     }
 
     @Test
     void yLength() {
-        assertTrue(table.getLength_Of_Y() == 12);
+        assertEquals(12, table.getLength_Of_Y());
     }
 
     @Test
@@ -42,7 +41,7 @@ class TableTest {
         table.reset();
         for (int i = 0; i < table.getLength_Of_X(); i++) {
             for (int j = 0; j < table.getLength_Of_Y(); j++) {
-                if (table.valueInTableOf(i, j) == 1) {
+                if (table.valueInTableOf(i, j) == CURRENTPIECE) {
                     boolen = false;
                 }
             }
@@ -56,7 +55,7 @@ class TableTest {
 
         for (int i = 0; i < table.getLength_Of_X(); i++) {
             for (int j = 0; j < table.getLength_Of_Y(); j++) {
-                if (table.valueInTableOf(i, j) == 1) {
+                if (table.valueInTableOf(i, j) == CURRENTPIECE) {
                     boolen = false;
                 }
             }
@@ -66,14 +65,14 @@ class TableTest {
 
     @Test
     void setTable_NewValue_2_return_True() {
-        table.setTable(5, 5, 2);
-        assertTrue(table.valueInTableOf(5, 5) == 2);
+        table.setTable(5, 5, BLOCKEDPIECE);
+        assertSame(table.valueInTableOf(5, 5), BLOCKEDPIECE);
     }
 
     @Test
     void setTable_NewValue_3_return_False() {
-        table.setTable(5, 5, 3);
-        assertFalse(table.valueInTableOf(5, 5) == 2);
+        table.setTable(5, 5, ERROR);
+        assertNotSame(table.valueInTableOf(5, 5), BLOCKEDPIECE);
     }
 
 

@@ -1,4 +1,4 @@
-package Table;
+package Enum;
 
 public enum Enum {
     RIGHT,
@@ -7,5 +7,8 @@ public enum Enum {
     TURNRIGHT,
     TURNLEFT,
     ERROR,
+    EMPTY,
+    CURRENTPIECE,
+    BLOCKEDPIECE,
 
 }

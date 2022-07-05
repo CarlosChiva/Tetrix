@@ -1,21 +1,23 @@
 package pieces;
 
-public class Pieces implements IPieces {
-    int[][] piece = new int[3][3];
+import Enum.Enum;
 
-    public Pieces(int[][] piece) {
+public class Pieces implements IPieces {
+    Enum[][] piece = new Enum[3][3];
+
+    public Pieces(Enum[][] piece) {
         this.piece = piece;
     }
 
     public Pieces() {
     }
     @Override
-    public int getValuesArray(int x, int y) {
+    public Enum getValuesArray(int x, int y) {
         return piece[x][y];
     }
 
     @Override
-    public void setArray(int[][] array) {
+    public void setArray(Enum[][] array) {
         piece = array;
     }
 
