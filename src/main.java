@@ -1,4 +1,6 @@
-import Menu.Menu;
+
+import Menu.MainWindow;
+
 public class main {
 
     public static void main(String[] args) {
@@ -17,7 +19,6 @@ public class main {
         } while (chos != 0);
     */
 
-        Menu menu=new Menu();
-        menu.setVisible(true);
+        new MainWindow();
     }
 }
