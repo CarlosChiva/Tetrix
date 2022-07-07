@@ -6,6 +6,8 @@ import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class MainWindow extends JFrame {
@@ -31,6 +33,15 @@ public class MainWindow extends JFrame {
             frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
             try {
                 new RankingWindows();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+        });
+        startGameButton.addActionListener(e -> {
+            frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
+            try {
+                new GameWindow();
             } catch (IOException ex) {
                 ex.printStackTrace();
             }

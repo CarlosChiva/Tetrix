@@ -2,6 +2,11 @@ package Table;
 
 import Enum.Enum;
 import Game.pieces.BufferedPieces;
+import Menu.GameWindow;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 import static Enum.Enum.*;
 
@@ -256,6 +261,28 @@ public class TableManager {
     private void gameOver() {
         System.out.println("Game over");
         System.out.println("Your score is: " + sources);
+    }
+
+    private void printImage() {
+        int ancho = 200;
+        int alto = 200;
+
+        BufferedImage bufferedImage = new BufferedImage(ancho, alto, BufferedImage.TYPE_INT_RGB);
+        Enum[][] table = this.table.getTable();
+        Graphics2D gs = bufferedImage.createGraphics();
+
+        for (int i = 0; i < bufferedImage.getWidth(); i++) {
+            for (int j = 0; j < bufferedImage.getHeight(); j++) {
+                if (table[i][j] == EMPTY) {
+                    bufferedImage.setRGB(i, j, Color.WHITE.getRGB());
+                } else if (table[i][j] == CURRENTPIECE) {
+                    bufferedImage.setRGB(i, j, Color.RED.getRGB());
+                } else if (table[i][j] == BLOCKEDPIECE) {
+                    bufferedImage.setRGB(i, j, Color.BLACK.getRGB());
+                }
+            }
+        }
+
     }
 
     public void printTable() {

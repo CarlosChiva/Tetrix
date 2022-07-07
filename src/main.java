@@ -1,6 +1,8 @@
 
 import Menu.MainWindow;
 
+import javax.swing.*;
+
 public class main {
 
     public static void main(String[] args) {
@@ -19,6 +21,12 @@ public class main {
         } while (chos != 0);
     */
 
-        new MainWindow();
+      //  new MainWindow();
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                MainWindow mainWindow=new MainWindow();
+            }
+        });
     }
 }

@@ -17,6 +17,9 @@ public class Table {
         return lenghtX;
     }
 
+    public Enum[][] getTable() {
+        return table;
+    }
 
     public Table() {
         fillTable();
