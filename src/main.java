@@ -1,6 +1,7 @@
 
 import Menu.GameWindow;
 import Menu.MainWindow;
+import Menu.Window;
 
 import javax.swing.*;
 
@@ -30,12 +31,7 @@ public class main {
             }
         });
     */
-        JFrame jFrame=new JFrame();
-
-        GameWindow gameWindow=new GameWindow();
-    jFrame.add(gameWindow);
-    jFrame.setVisible(true);
-    jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        Window window=new Window();
     
     }
 }

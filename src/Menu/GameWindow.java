@@ -3,6 +3,8 @@ package Menu;
 import Table.TableManager;
 
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.*;
 
@@ -12,10 +14,8 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class GameWindow extends JPanel {
     JFrame jFrame = new JFrame();
-
     TableManager tableManager;
     int cuadrado = 25;
-
     public GameWindow() {
 
         tableManager = new TableManager();
