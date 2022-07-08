@@ -6,8 +6,6 @@ import com.intellij.uiDesigner.core.Spacer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class MainWindow extends JFrame {
@@ -16,21 +14,21 @@ public class MainWindow extends JFrame {
     private JButton startGameButton;
     private JButton loadGameButton;
     private JButton viewRankingButton;
-    private JFrame frame;
+    // private JFrame frame;
     private boolean visible = true;
 
     public MainWindow() {
-        frame = new JFrame("Main");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(250, 200));
-        frame.setResizable(false);
-        frame.add(MainPanel);
+        //frame= new JFrame("Main");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setPreferredSize(new Dimension(250, 200));
+        setResizable(false);
+        add(MainPanel);
 
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(visible);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
         viewRankingButton.addActionListener(e -> {
-            frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
+            this.setVisible(false);
             try {
                 new RankingWindows();
             } catch (IOException ex) {
@@ -39,12 +37,10 @@ public class MainWindow extends JFrame {
 
         });
         startGameButton.addActionListener(e -> {
-            frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
-            try {
-                new GameWindow();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            this.setVisible(false);
+
+            new GameWindow();
+
 
         });
     }

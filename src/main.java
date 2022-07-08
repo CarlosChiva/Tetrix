@@ -1,4 +1,5 @@
 
+import Menu.GameWindow;
 import Menu.MainWindow;
 
 import javax.swing.*;
@@ -22,11 +23,19 @@ public class main {
     */
 
       //  new MainWindow();
-        SwingUtilities.invokeLater(new Runnable() {
+      /*  SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 MainWindow mainWindow=new MainWindow();
             }
         });
+    */
+        JFrame jFrame=new JFrame();
+
+        GameWindow gameWindow=new GameWindow();
+    jFrame.add(gameWindow);
+    jFrame.setVisible(true);
+    jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    
     }
 }
