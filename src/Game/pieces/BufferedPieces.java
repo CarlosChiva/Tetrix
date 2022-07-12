@@ -1,4 +1,5 @@
 package Game.pieces;
+
 import Game.pieces.Pieces.*;
 
 import java.util.ArrayList;
@@ -16,6 +17,9 @@ public class BufferedPieces {
         pieces.add(new Q());
         pieces.add(new Z());
         pieces.add(new S());
+        pieces.add(new LInvers());
+        pieces.add(new ZInvers());
+        pieces.add(new Plus());
 
     }
 

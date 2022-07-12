@@ -31,7 +31,7 @@ public class main {
         });
     */
         GameWindow gameWindow =new GameWindow();
-       // RankingWindows rankingWindows=new RankingWindows();
+
     
     }
 }

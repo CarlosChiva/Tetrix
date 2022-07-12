@@ -14,11 +14,11 @@ public class MainWindow extends JFrame {
     private JButton startGameButton;
     private JButton loadGameButton;
     private JButton viewRankingButton;
-    // private JFrame frame;
+
     private boolean visible = true;
 
     public MainWindow() {
-        //frame= new JFrame("Main");
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(250, 200));
         setResizable(false);
@@ -38,8 +38,7 @@ public class MainWindow extends JFrame {
         });
         startGameButton.addActionListener(e -> {
             this.setVisible(false);
-
-            new GamePanel();
+            new GameWindow();
 
 
         });

@@ -3,6 +3,8 @@ import Enum.Enum;
 import Game.pieces.BufferedPieces;
 import Providers.ScoreProvider;
 
+import javax.swing.*;
+
 import static Enum.Enum.*;
 
 public class TableManager {
@@ -24,7 +26,7 @@ public class TableManager {
 
     }
 
-    protected void newPoint() {
+    private void newPoint() {
         this.point = new Point();
         table.putPoint(point);
         newPiece();
@@ -32,7 +34,7 @@ public class TableManager {
 
     private void newPiece() {
         this.piece = new Piece(bufferedPieces.getPiece());
-        if (areTherePiece(ERROR)) {
+        if (isGameOver()) {
             gameOver();
         } else {
             table.printUnderPoint(piece);
@@ -42,9 +44,11 @@ public class TableManager {
     private void updatePoint() {
         score += 100;
     }
-
+public boolean isGameOver(){
+       return areTherePiece(ERROR);
+}
     //--------------------------------------------------------------------------Move
-    protected boolean canMovePoint(Enum move) {
+    private boolean canMovePoint(Enum move) {
         if (move == LEFT) {
             return point.getY_coordenade() - 1 >= 0;
         }
@@ -55,7 +59,7 @@ public class TableManager {
 
     }
 
-    protected boolean pieceInBorder(Enum move) {
+    private boolean pieceInBorder(Enum move) {
         for (Enum[] ints : table.table) {
             if (move == RIGHT) {
                 if (ints[table.getLength_Of_Y() - 1] == CURRENTPIECE) {
@@ -70,7 +74,7 @@ public class TableManager {
         return false;
     }
 
-    protected boolean otherPiece(Enum move) {
+    private boolean otherPiece(Enum move) {
 
         for (int i = 0; i < table.getLength_Of_X(); i++)
             for (int j = 0; j < table.getLength_Of_Y() - 1; j++) {
@@ -89,16 +93,16 @@ public class TableManager {
         return false;
     }
 
-    protected boolean canPutPiece(Enum move) {
+    private boolean canPutPiece(Enum move) {
         return !pieceInBorder(move) && !otherPiece(move);
     }
 
-    protected boolean canMove(Enum move) {
+    private boolean canMove(Enum move) {
         return canMovePoint(move) && canPutPiece(move);
     }
 
     //--------------------------------------------------------------------------Down
-    protected boolean pieceInBotoom() {
+    private boolean pieceInBotoom() {
         for (int j = 0; j < table.getLength_Of_Y(); j++) {
             if (table.valueInTableOf(table.getLength_Of_X() - 1, j) == CURRENTPIECE) {
                 return true;
@@ -107,7 +111,7 @@ public class TableManager {
         return false;
     }
 
-    protected boolean otherPieceDown() {
+    private boolean otherPieceDown() {
         for (int i = 0; i < table.getLength_Of_X(); i++)
             for (int j = 0; j < table.getLength_Of_Y(); j++) {
                 if (table.valueInTableOf(i, j) == CURRENTPIECE && table.valueInTableOf(i + 1, j) == BLOCKEDPIECE) {
@@ -118,17 +122,17 @@ public class TableManager {
         return false;
     }
 
-    protected boolean canPutPiecedown() {
+    private boolean canPutPiecedown() {
         return !pieceInBotoom() && !otherPieceDown();
     }
 
-    protected boolean canMoveDown() {
+    private boolean canMoveDown() {
         return canMovePoint(Enum.DOWN) && canPutPiecedown();
     }
 
     //---------------------------------------------------------------------------Turn Piece
 
-    protected boolean areTherePiece(Enum turn) {
+    private boolean areTherePiece(Enum turn) {
         Piece aux = new Piece(piece.newPiece());
         if (turn == TURNLEFT) {
             aux.turnLeft();
@@ -149,7 +153,7 @@ public class TableManager {
         return false;
     }
 
-    protected boolean areThereBorder() {
+    private boolean areThereBorder() {
         Piece aux = new Piece(piece.newPiece());
         int printX = 0;
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
@@ -166,12 +170,12 @@ public class TableManager {
     }
 
 
-    protected boolean canTurn(Enum turn) {
+    private boolean canTurn(Enum turn) {
         return !areThereBorder() && !areTherePiece(turn);
     }
 
     //-------------------------------------------------------------------Look if Points
-    protected boolean rowsFill() {
+    private boolean rowsFill() {
         int count = 0;
         for (int i = 0; i < table.getLength_Of_X(); i++) {
             for (int j = 0; j < table.getLength_Of_Y(); j++) {
@@ -260,7 +264,6 @@ public class TableManager {
     private void gameOver() {
         ScoreProvider scoreProvider=new ScoreProvider();
         scoreProvider.saveScore(getScore());
-        System.exit(1);
         System.out.println("Game over");
         System.out.println("Your score is: " + getScore());
     }
