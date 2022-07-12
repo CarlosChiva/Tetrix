@@ -1,7 +1,7 @@
 package Table;
 import Enum.Enum;
 import Game.pieces.BufferedPieces;
-import Menu.ScoreProvider;
+import Providers.ScoreProvider;
 
 import static Enum.Enum.*;
 
