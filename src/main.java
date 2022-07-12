@@ -1,13 +1,12 @@
 
 import Menu.GameWindow;
-import Menu.MainWindow;
-import Menu.Window;
+import Menu.RankingWindows;
 
-import javax.swing.*;
+import java.io.IOException;
 
 public class main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         /*TableManager tableManager = new TableManager();
         Scanner scn = new Scanner(System.in);
         char chos;
@@ -31,7 +30,8 @@ public class main {
             }
         });
     */
-        Window window=new Window();
+        GameWindow gameWindow =new GameWindow();
+       // RankingWindows rankingWindows=new RankingWindows();
     
     }
 }

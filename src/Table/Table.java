@@ -4,8 +4,8 @@ import Enum.Enum;
 import static Enum.Enum.*;
 
 public class Table {
-    private final int lenghtX = 9;
-    private final int lenghtY = 12;
+    private final int lenghtX = 15;
+    private final int lenghtY = 13;
     Enum[][] table = new Enum[lenghtX][lenghtY];
     Point point;
 

@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class RankingWindows extends JFrame {
 
@@ -38,12 +39,11 @@ public class RankingWindows extends JFrame {
     }
 
     private void loadList() throws IOException {
-        RankingProvider rankinProvider = new RankingProvider();
+        ScoreProvider rankinProvider = new ScoreProvider();
         int size = rankinProvider.getRanking().size();
-        String[] list = new String[size];
-
-        for (int i = 0; i < size; i++) {
-            list[i] = rankinProvider.ranking.get(i);
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (String rankig : rankinProvider.getRanking()) {
+            arrayList.add(rankig);
         }
         this.ranking.setModel(new AbstractListModel() {
             @Override
@@ -53,7 +53,7 @@ public class RankingWindows extends JFrame {
 
             @Override
             public Object getElementAt(int index) {
-                return list[index];
+                return arrayList.get(index);
             }
         });
     }

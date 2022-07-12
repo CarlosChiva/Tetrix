@@ -25,15 +25,6 @@ class TableTest {
     void tearDown() {
     }
 
-    @Test
-    void xLength() {
-        assertEquals(9, table.getLength_Of_X());
-    }
-
-    @Test
-    void yLength() {
-        assertEquals(12, table.getLength_Of_Y());
-    }
 
     @Test
     void reset() {

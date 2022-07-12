@@ -5,7 +5,7 @@ public class Point {
     int y_coordenade;
 public Point(){
     this.x_coordenade=1;
-    this.y_coordenade=5;
+    this.y_coordenade=6;
 }
     public int getX_coordenade() {
         return x_coordenade;

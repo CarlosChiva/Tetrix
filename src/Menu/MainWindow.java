@@ -39,7 +39,7 @@ public class MainWindow extends JFrame {
         startGameButton.addActionListener(e -> {
             this.setVisible(false);
 
-            new GameWindow();
+            new GamePanel();
 
 
         });

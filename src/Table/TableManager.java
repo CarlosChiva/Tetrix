@@ -1,22 +1,21 @@
 package Table;
-
 import Enum.Enum;
 import Game.pieces.BufferedPieces;
-import Menu.GameWindow;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import Menu.ScoreProvider;
 
 import static Enum.Enum.*;
-
 
 public class TableManager {
     public Table table;
     Point point;
     BufferedPieces bufferedPieces;
     Piece piece;
-    int sources = 0;
+    private int score = 0;
+    public int getScore() {
+        return score;
+    }
+
+
 
     public TableManager() {
         bufferedPieces = new BufferedPieces();
@@ -41,7 +40,7 @@ public class TableManager {
     }
 
     private void updatePoint() {
-        sources += 100;
+        score += 100;
     }
 
     //--------------------------------------------------------------------------Move
@@ -229,7 +228,7 @@ public class TableManager {
                     if (rowsFill()) {
                         table.refreshTable();
                         updatePoint();
-                        System.out.println("Good, your scource is:  " + sources);
+                        System.out.println("Good, your scource is:  " + score);
                     }
                     newPoint();
                     newPiece();
@@ -259,8 +258,11 @@ public class TableManager {
     }
 
     private void gameOver() {
+        ScoreProvider scoreProvider=new ScoreProvider();
+        scoreProvider.saveScore(getScore());
+        System.exit(1);
         System.out.println("Game over");
-        System.out.println("Your score is: " + sources);
+        System.out.println("Your score is: " + getScore());
     }
 
     public void printTable() {

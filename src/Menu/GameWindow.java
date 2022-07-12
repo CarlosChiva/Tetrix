@@ -1,42 +1,70 @@
 package Menu;
 
-import Table.TableManager;
-
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JPanel;
-
-import static Enum.Enum.EMPTY;
 
 
-public class GameWindow extends JPanel {
+public class GameWindow extends JFrame implements KeyListener {
+    GamePanel gamePanel;
+    JLabel score;
+    JLabel scoreNumber;
 
-    TableManager tableManager;
-    int cuadrado = 25;
     public GameWindow() {
-        tableManager = new TableManager();
-        setPreferredSize(new Dimension(250, 200));
+        setSize(500, 500);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setLayout(null);
+        setMinimumSize(new Dimension(500, 500));
+        pack();
+        addKeyListener(this);
         setVisible(true);
+        score();
+        gamePanel();
+        numSore();
 
     }
 
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-
-        for (int i = 0; i <= 9; i++) {
-            g.drawLine(0, i * cuadrado, 12 * cuadrado, i * cuadrado);
-        }
-            for (int j = 0; j <= 12; j++) {
-                g.drawLine(j * cuadrado, 0, j * cuadrado, 9 * cuadrado);
-            }
-            for (int x=0;x<9;x++){
-                for (int c=0;c<12;c++){
-                    if (tableManager.table.valueInTableOf(x,c)==EMPTY){
-                        g.fillRect(c*cuadrado,x*cuadrado,cuadrado-1,cuadrado-1);
-                    }
-                }
-            }
+    @Override
+    public void keyTyped(KeyEvent e) {
 
     }
 
+    @Override
+    public void keyPressed(KeyEvent e) {
+        gamePanel.tableManager.movedPoint(e.getKeyChar());
+        gamePanel.validate();
+        gamePanel.repaint();
+        scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+
+    private void gamePanel() {
+        gamePanel = new GamePanel();
+        gamePanel.setBounds(10, 10, 400, 400);
+
+        add(gamePanel);
+
+    }
+
+    private void score() {
+        score = new JLabel("Score");
+        score.setBounds(410, 100, 50, 50);
+
+        add(score);
+    }
+
+    private void numSore() {
+        scoreNumber = new JLabel();
+        scoreNumber.setBounds(410, 160, 100, 50);
+        scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
+        add(scoreNumber);
+
+    }
 }
