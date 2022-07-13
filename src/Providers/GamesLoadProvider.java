@@ -1,29 +1,36 @@
 package Providers;
-
+import Menu.GamePanel;
+import com.google.gson.Gson;
 import Table.TableManager;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.Type;
+
 
 public class GamesLoadProvider {
-    File file;
-
-    public GamesLoadProvider(File file) {
-        this.file = file;
+    Gson gson=new Gson();
+String file="./GameSaved/";
+    public GamesLoadProvider() {
     }
 
     public TableManager loadGame() {
-        TableManager tableManager = new TableManager();
-        try (ObjectInputStream reader = new ObjectInputStream(new FileInputStream(file))) {
-            tableManager = (TableManager) reader.readObject();
-
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+        TableManager tableGame = new TableManager();
+        try (FileReader reader = new FileReader("./GamesSaved/Partida1.json")) {
+            final Type gamePanel = new TypeToken<TableManager>() {}.getType();
+            tableGame = gson.fromJson(reader,gamePanel);
+            if (tableGame==null){
+                return new TableManager();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        return tableManager;
+        return tableGame;
     }
-    public void saveGame(TableManager tableManager){
-        try(ObjectOutputStream writer=new ObjectOutputStream(new FileOutputStream(file))) {
-        writer.writeObject(tableManager);
+    public void saveGame(TableManager gamePanel){
+        try(FileWriter writer=new FileWriter("./GamesSaved/Partida1.json")) {
+        writer.write(gson.toJson(gamePanel));
+
         } catch (IOException e) {
             e.printStackTrace();
         }

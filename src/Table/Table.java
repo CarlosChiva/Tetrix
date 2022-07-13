@@ -1,9 +1,12 @@
 package Table;
 
 import Enum.Enum;
+
+import java.io.Serializable;
+
 import static Enum.Enum.*;
 
-public class Table {
+public class Table implements Serializable {
     private final int lenghtX = 15;
     private final int lenghtY = 13;
     Enum[][] table = new Enum[lenghtX][lenghtY];

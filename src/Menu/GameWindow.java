@@ -1,5 +1,8 @@
 package Menu;
 
+import Providers.GamesLoadProvider;
+import Table.TableManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +18,24 @@ public class GameWindow extends JFrame {
     ActionListener actionListener = new ActionListener();
 
     public GameWindow() {
+        loadCaracteristicsOfJFrame();
+        loadFirstComponents();
+
+    }
+
+    public GameWindow(TableManager tableManager) {
+        loadCaracteristicsOfJFrame();
+        this.gamePanel = new GamePanel(tableManager);
+        gamePanel.setVisible(true);
+        gamePanel.setBounds(10, 10, 370, 400);
+        requestFocus();
+        add(gamePanel);
+        score();
+        numSore();
+        button();
+    }
+
+    public void loadCaracteristicsOfJFrame() {
         setSize(500, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -23,7 +44,6 @@ public class GameWindow extends JFrame {
         setMinimumSize(new Dimension(500, 500));
         pack();
         setVisible(true);
-        loadFirstComponents();
         this.addKeyListener(new KeyListenerr());
 
     }
@@ -76,6 +96,7 @@ public class GameWindow extends JFrame {
         aContinue.setEnabled(true);
         saveGame.setEnabled(true);
         aContinue.addActionListener(actionListener);
+        saveGame.addActionListener(actionListener);
         add(aContinue);
         add(saveGame);
 
@@ -113,6 +134,7 @@ public class GameWindow extends JFrame {
                 gamePanel.setVisible(false);
                 paus();
                 pack();
+                requestFocus();
                 validate();
 
             } else if (e.getSource().equals(aContinue)) {
@@ -125,8 +147,9 @@ public class GameWindow extends JFrame {
                 requestFocus();
 
 
-            }else if (e.getSource().equals(saveGame)){
-
+            } else if (e.getSource().equals(saveGame)) {
+                GamesLoadProvider gamesLoadProvider = new GamesLoadProvider();
+                gamesLoadProvider.saveGame(gamePanel.tableManager);
             }
         }
     }

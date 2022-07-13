@@ -1,5 +1,6 @@
 package Menu;
 
+import Providers.GamesLoadProvider;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -15,7 +16,6 @@ public class MainWindow extends JFrame {
     private JButton loadGameButton;
     private JButton viewRankingButton;
 
-    private boolean visible = true;
 
     public MainWindow() {
 
@@ -39,6 +39,13 @@ public class MainWindow extends JFrame {
         startGameButton.addActionListener(e -> {
             this.setVisible(false);
             new GameWindow();
+
+
+        });
+        loadGameButton.addActionListener(e -> {
+            this.setVisible(false);
+            GamesLoadProvider gamesLoadProvider = new GamesLoadProvider();
+            new GameWindow(gamesLoadProvider.loadGame());
 
 
         });

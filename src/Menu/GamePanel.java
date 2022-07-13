@@ -2,6 +2,7 @@ package Menu;
 
 import Table.TableManager;
 import java.awt.*;
+import java.io.Serializable;
 import javax.swing.JPanel;
 import static Enum.Enum.*;
 
@@ -15,6 +16,9 @@ public class GamePanel extends JPanel {
         setVisible(true);
 
 
+    }
+    public GamePanel(TableManager tableManager1){
+        this.tableManager=tableManager1;
     }
 
     protected void paintComponent(Graphics g) {

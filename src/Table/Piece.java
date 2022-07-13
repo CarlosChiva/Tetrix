@@ -2,9 +2,11 @@ package Table;
 import Enum.Enum;
 import Game.pieces.TablePiece;
 
+import java.io.Serializable;
+
 import static Enum.Enum.*;
 
-public class Piece {
+public class Piece implements Serializable {
     TablePiece piece;
 
 public Piece(TablePiece piece){

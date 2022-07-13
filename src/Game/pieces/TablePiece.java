@@ -2,7 +2,9 @@ package Game.pieces;
 
 import Enum.Enum;
 
-public class TablePiece implements IPieces {
+import java.io.Serializable;
+
+public class TablePiece implements IPieces, Serializable {
     public Enum[][] piece = new Enum[3][3];
 
     public TablePiece(Enum[][] piece) {

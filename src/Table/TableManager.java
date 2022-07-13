@@ -5,9 +5,11 @@ import Providers.ScoreProvider;
 
 import javax.swing.*;
 
+import java.io.Serializable;
+
 import static Enum.Enum.*;
 
-public class TableManager {
+public class TableManager implements Serializable {
     public Table table;
     Point point;
     BufferedPieces bufferedPieces;

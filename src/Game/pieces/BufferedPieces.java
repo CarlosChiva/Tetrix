@@ -2,9 +2,10 @@ package Game.pieces;
 
 import Game.pieces.Pieces.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BufferedPieces {
+public class BufferedPieces implements Serializable {
     static ArrayList<TablePiece> pieces = new ArrayList<>();
 
     public BufferedPieces() {

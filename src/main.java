@@ -1,5 +1,6 @@
 
 import Menu.GameWindow;
+import Menu.MainWindow;
 import Menu.RankingWindows;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class main {
             }
         });
     */
-        GameWindow gameWindow =new GameWindow();
+        MainWindow mainWindow=new MainWindow();
 
     
     }

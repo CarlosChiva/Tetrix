@@ -1,6 +1,8 @@
 package Table;
 
-public class Point {
+import java.io.Serializable;
+
+public class Point implements Serializable {
     int x_coordenade;
     int y_coordenade;
 public Point(){
