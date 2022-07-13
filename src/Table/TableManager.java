@@ -3,8 +3,6 @@ import Enum.Enum;
 import Game.pieces.BufferedPieces;
 import Providers.ScoreProvider;
 
-import javax.swing.*;
-
 import java.io.Serializable;
 
 import static Enum.Enum.*;
@@ -269,7 +267,7 @@ public boolean isGameOver(){
         System.out.println("Game over");
         System.out.println("Your score is: " + getScore());
     }
-
+/*
     public void printTable() {
         for (Enum[] ints : table.table) {
             for (int j = 0; j < table.getLength_Of_Y(); j++) {
@@ -287,5 +285,5 @@ public boolean isGameOver(){
             }
             System.out.println();
         }
-    }
+    }*/
 }

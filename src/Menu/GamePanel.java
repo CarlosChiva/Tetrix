@@ -2,7 +2,6 @@ package Menu;
 
 import Table.TableManager;
 import java.awt.*;
-import java.io.Serializable;
 import javax.swing.JPanel;
 import static Enum.Enum.*;
 

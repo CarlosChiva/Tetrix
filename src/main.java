@@ -1,13 +1,9 @@
 
-import Menu.GameWindow;
 import Menu.MainWindow;
-import Menu.RankingWindows;
-
-import java.io.IOException;
 
 public class main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         /*TableManager tableManager = new TableManager();
         Scanner scn = new Scanner(System.in);
         char chos;

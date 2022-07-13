@@ -15,6 +15,8 @@ public class GameWindow extends JFrame {
     JButton pause;
     JButton aContinue;
     JButton saveGame;
+    JButton save;
+    JTextField jTextField;
     ActionListener actionListener = new ActionListener();
 
     public GameWindow() {
@@ -102,6 +104,18 @@ public class GameWindow extends JFrame {
 
     }
 
+    private void saved() {
+        jTextField = new JTextField();
+        save = new JButton("Save");
+        save.setBounds(150, 220, 150, 50);
+        save.setEnabled(true);
+        jTextField.setBounds(150, 130, 150, 50);
+        jTextField.setVisible(true);
+        save.addActionListener(actionListener);
+        add(save);
+        add(jTextField);
+    }
+
     class KeyListenerr implements java.awt.event.KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
@@ -148,9 +162,17 @@ public class GameWindow extends JFrame {
 
 
             } else if (e.getSource().equals(saveGame)) {
+                saveGame.setVisible(false);
+                saveGame.setEnabled(false);
+                aContinue.setVisible(false);
+                aContinue.setEnabled(false);
+                saved();
+            } else if (e.getSource().equals(save)) {
                 GamesLoadProvider gamesLoadProvider = new GamesLoadProvider();
-                gamesLoadProvider.saveGame(gamePanel.tableManager);
+                gamesLoadProvider.saveGame(gamePanel.tableManager,jTextField.getText());
+
             }
         }
     }
 }
+

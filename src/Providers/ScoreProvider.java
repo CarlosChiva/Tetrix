@@ -44,7 +44,7 @@ public class ScoreProvider {
             aux.add(Integer.valueOf(asf));
         }
         ArrayList<Integer> aux2=new ArrayList<>(aux);
-        Collections.sort(aux2,Comparator.reverseOrder());
+        aux2.sort(Comparator.reverseOrder());
 
         try (PrintWriter bufferedWriter = new PrintWriter(new FileOutputStream(urlRanking))) {
             for (Integer score : aux2) {

@@ -1,6 +1,4 @@
 package Menu;
-
-import Providers.GamesLoadProvider;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -44,10 +42,7 @@ public class MainWindow extends JFrame {
         });
         loadGameButton.addActionListener(e -> {
             this.setVisible(false);
-            GamesLoadProvider gamesLoadProvider = new GamesLoadProvider();
-            new GameWindow(gamesLoadProvider.loadGame());
-
-
+            new LoadGameWindow();
         });
     }
 
