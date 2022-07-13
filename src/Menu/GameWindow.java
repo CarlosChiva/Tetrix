@@ -3,16 +3,16 @@ package Menu;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-
-public class GameWindow extends JFrame implements KeyListener {
+public class GameWindow extends JFrame {
     GamePanel gamePanel;
     JLabel score;
     JLabel scoreNumber;
     JButton pause;
+    JButton aContinue;
+    JButton saveGame;
+    ActionListener actionListener = new ActionListener();
 
     public GameWindow() {
         setSize(500, 500);
@@ -22,18 +22,24 @@ public class GameWindow extends JFrame implements KeyListener {
         setLayout(null);
         setMinimumSize(new Dimension(500, 500));
         pack();
-        addKeyListener(this);
         setVisible(true);
-        score();
+        loadFirstComponents();
+        this.addKeyListener(new KeyListenerr());
+
+    }
+
+    public void loadFirstComponents() {
         gamePanel();
+        score();
         numSore();
         button();
-
     }
 
     private void gamePanel() {
         gamePanel = new GamePanel();
         gamePanel.setBounds(10, 10, 370, 400);
+        gamePanel.setVisible(true);
+        requestFocus();
         add(gamePanel);
     }
 
@@ -50,53 +56,78 @@ public class GameWindow extends JFrame implements KeyListener {
         scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
         add(scoreNumber);
 
+
     }
 
     private void button() {
         pause = new JButton("Pause");
         pause.setBounds(380, 300, 70, 50);
         pause.setEnabled(true);
+        pause.addActionListener(actionListener);
         add(pause);
-        pause.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                paus();
-
-            }
-        });
     }
 
     private void paus() {
-
-        JButton aContinue = new JButton("Continue");
-        JButton saveGame = new JButton("Save Game");
-        aContinue.setBounds(380, 350, 70, 50);
+        aContinue = new JButton("Continue");
+        saveGame = new JButton("Save Game");
+        aContinue.setBounds(150, 150, 150, 50);
         aContinue.setVisible(true);
-        saveGame.setBounds(380, 380, 70, 50);
-        add(aContinue);
+        saveGame.setBounds(150, 220, 150, 50);
         aContinue.setEnabled(true);
         saveGame.setEnabled(true);
+        aContinue.addActionListener(actionListener);
+        add(aContinue);
         add(saveGame);
 
     }
 
+    class KeyListenerr implements java.awt.event.KeyListener {
+        @Override
+        public void keyTyped(KeyEvent e) {
 
-    @Override
-    public void keyTyped(KeyEvent e) {
+        }
 
+        @Override
+        public void keyPressed(KeyEvent e) {
+            {
+                gamePanel.tableManager.movedPoint(e.getKeyChar());
+                gamePanel.validate();
+                gamePanel.repaint();
+                scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
+            }
+
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
     }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        gamePanel.tableManager.movedPoint(e.getKeyChar());
-        gamePanel.validate();
-        gamePanel.repaint();
-        scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
+    class ActionListener implements java.awt.event.ActionListener {
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            if (e.getSource().equals(pause) && gamePanel.isVisible()) {
+                gamePanel.setVisible(false);
+                paus();
+                pack();
+                validate();
+
+            } else if (e.getSource().equals(aContinue)) {
+                aContinue.setVisible(false);
+                saveGame.setVisible(false);
+                gamePanel.setVisible(true);
+                gamePanel.addKeyListener(new KeyListenerr());
+                remove(aContinue);
+                remove(saveGame);
+                requestFocus();
+
+
+            }else if (e.getSource().equals(saveGame)){
+
+            }
+        }
     }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
-
 }

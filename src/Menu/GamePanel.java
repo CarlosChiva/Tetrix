@@ -14,6 +14,7 @@ public class GamePanel extends JPanel {
         setPreferredSize(new Dimension(250, 200));
         setVisible(true);
 
+
     }
 
     protected void paintComponent(Graphics g) {
