@@ -19,6 +19,7 @@ public class LoadGameWindow extends JFrame {
 
 
     public void loadCaracteristicsOfJFrame() {
+        setTitle("Load Game");
         setSize(500, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -62,7 +63,7 @@ public class LoadGameWindow extends JFrame {
     private void loadList() {
         GamesLoadProvider gamesLoadProvider = new GamesLoadProvider();
         ArrayList<String> arrayList = gamesLoadProvider.listGameSaved();
-        this.gamesSaved.setModel(new AbstractListModel() {
+        gamesSaved.setModel(new AbstractListModel() {
             @Override
             public int getSize() {
                 return arrayList.size();

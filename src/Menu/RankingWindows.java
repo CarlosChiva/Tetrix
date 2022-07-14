@@ -17,11 +17,10 @@ public class RankingWindows extends JFrame {
     private JPanel panel1;
     private JButton backButton;
 
-
     public RankingWindows() throws IOException {
-
+        setTitle("Ranking");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(250, 200));
+        setPreferredSize(new Dimension(370, 400));
         setResizable(false);
         add(panel1);
         pack();
@@ -39,11 +38,10 @@ public class RankingWindows extends JFrame {
         loadList();
     }
 
-    private void loadList()  {
+    private void loadList() {
         ScoreProvider rankinProvider = new ScoreProvider();
         int size = rankinProvider.getRanking().size();
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.addAll(rankinProvider.getRanking());
+        ArrayList<String> arrayList = new ArrayList<>(rankinProvider.getRanking());
         this.ranking.setModel(new AbstractListModel() {
             @Override
             public int getSize() {

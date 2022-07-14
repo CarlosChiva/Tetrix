@@ -1,4 +1,5 @@
 package Menu;
+
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import com.intellij.uiDesigner.core.Spacer;
@@ -21,7 +22,7 @@ public class MainWindow extends JFrame {
         setPreferredSize(new Dimension(250, 200));
         setResizable(false);
         add(MainPanel);
-
+        setTitle("Tetrix");
         pack();
         setLocationRelativeTo(null);
         setVisible(true);

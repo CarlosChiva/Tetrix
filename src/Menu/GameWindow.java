@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 public class GameWindow extends JFrame {
     GamePanel gamePanel;
@@ -38,6 +39,7 @@ public class GameWindow extends JFrame {
     }
 
     public void loadCaracteristicsOfJFrame() {
+        setTitle("Tetrix");
         setSize(500, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -86,6 +88,10 @@ public class GameWindow extends JFrame {
         pause.setBounds(380, 300, 70, 50);
         pause.setEnabled(true);
         pause.addActionListener(actionListener);
+        ImageIcon icono = new ImageIcon("./Images/pause.png");
+        pause.setIcon(new ImageIcon(icono.getImage().getScaledInstance(pause.getWidth(), pause.getHeight(), Image.SCALE_SMOOTH)));
+        pause.setContentAreaFilled(false);
+        pause.setBorder(null);
         add(pause);
     }
 
@@ -116,6 +122,17 @@ public class GameWindow extends JFrame {
         add(jTextField);
     }
 
+    private void gameOver() {
+        this.setVisible(false);
+        setDefaultCloseOperation(HIDE_ON_CLOSE);
+        try {
+            new RankingWindows();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
     class KeyListenerr implements java.awt.event.KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
@@ -127,7 +144,12 @@ public class GameWindow extends JFrame {
             {
                 gamePanel.tableManager.movedPoint(e.getKeyChar());
                 gamePanel.validate();
+
+                if (gamePanel.tableManager.isGameOver()) {
+                    gameOver();
+                }
                 gamePanel.repaint();
+
                 scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
             }
 
@@ -146,6 +168,7 @@ public class GameWindow extends JFrame {
 
             if (e.getSource().equals(pause) && gamePanel.isVisible()) {
                 gamePanel.setVisible(false);
+                pause.setVisible(false);
                 paus();
                 pack();
                 requestFocus();
@@ -156,6 +179,7 @@ public class GameWindow extends JFrame {
                 saveGame.setVisible(false);
                 gamePanel.setVisible(true);
                 gamePanel.addKeyListener(new KeyListenerr());
+                pause.setVisible(true);
                 remove(aContinue);
                 remove(saveGame);
                 requestFocus();
@@ -169,7 +193,7 @@ public class GameWindow extends JFrame {
                 saved();
             } else if (e.getSource().equals(save)) {
                 GamesLoadProvider gamesLoadProvider = new GamesLoadProvider();
-                gamesLoadProvider.saveGame(gamePanel.tableManager,jTextField.getText());
+                gamesLoadProvider.saveGame(gamePanel.tableManager, jTextField.getText());
 
             }
         }
