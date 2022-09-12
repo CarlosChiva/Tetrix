@@ -1,4 +1,5 @@
 package Table;
+
 import Enum.Enum;
 import Game.pieces.BufferedPieces;
 import Providers.ScoreProvider;
@@ -13,10 +14,10 @@ public class TableManager implements Serializable {
     BufferedPieces bufferedPieces;
     Piece piece;
     private int score = 0;
+
     public int getScore() {
         return score;
     }
-
 
 
     public TableManager() {
@@ -44,9 +45,11 @@ public class TableManager implements Serializable {
     private void updatePoint() {
         score += 100;
     }
-public boolean isGameOver(){
-       return areTherePiece(ERROR);
-}
+
+    public boolean isGameOver() {
+        return areTherePiece(ERROR);
+    }
+
     //--------------------------------------------------------------------------Move
     private boolean canMovePoint(Enum move) {
         if (move == LEFT) {
@@ -132,6 +135,7 @@ public boolean isGameOver(){
 
     //---------------------------------------------------------------------------Turn Piece
 
+
     private boolean areTherePiece(Enum turn) {
         Piece aux = new Piece(piece.newPiece());
         if (turn == TURNLEFT) {
@@ -150,6 +154,7 @@ public boolean isGameOver(){
             }
             printX++;
         }
+
         return false;
     }
 
@@ -262,13 +267,13 @@ public boolean isGameOver(){
     }
 
     private void gameOver() {
-        ScoreProvider scoreProvider=new ScoreProvider();
+        ScoreProvider scoreProvider = new ScoreProvider();
         scoreProvider.saveScore(getScore());
         System.out.println("Game over");
         System.out.println("Your score is: " + getScore());
     }
-/*
-    public void printTable() {
+
+    /*public void printTable() {
         for (Enum[] ints : table.table) {
             for (int j = 0; j < table.getLength_Of_Y(); j++) {
                 if (ints[j] == EMPTY) {

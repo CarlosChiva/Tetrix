@@ -127,6 +127,7 @@ public class TableManagerMock {
 
     //---------------------------------------------------------------------------Turn Piece
 
+
     protected boolean areTherePiece(Enum turn) {
         Piece aux = new Piece(piece.newPiece());
         if (turn == TURNLEFT) {

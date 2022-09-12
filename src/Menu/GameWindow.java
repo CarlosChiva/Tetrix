@@ -144,13 +144,12 @@ public class GameWindow extends JFrame {
             {
                 gamePanel.tableManager.movedPoint(e.getKeyChar());
                 gamePanel.validate();
-
-                if (gamePanel.tableManager.isGameOver()) {
-                    gameOver();
-                }
                 gamePanel.repaint();
 
                 scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
+            }
+            if (gamePanel.tableManager.isGameOver()) {
+                gameOver();
             }
 
         }

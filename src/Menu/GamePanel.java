@@ -23,7 +23,7 @@ public class GamePanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        for (int i = 0; i <= tableManager.table.getLength_Of_X(); i++) {
+        for (int i = 0; i <=tableManager.table.getLength_Of_X(); i++) {
             g.drawLine(0, i * cuadrado, tableManager.table.getLength_Of_Y() * cuadrado, i * cuadrado);
         }
             for (int j = 0; j <= tableManager.table.getLength_Of_Y(); j++) {
