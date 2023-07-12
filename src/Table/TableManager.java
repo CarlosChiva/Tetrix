@@ -147,8 +147,10 @@ public class TableManager implements Serializable {
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
             for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
-                if (table.valueInTableOf(i, j) == BLOCKEDPIECE && aux.areTherePiece(printX, printY)) {
-                    return true;
+                if (j > table.getLength_Of_Y()) {
+                    if (table.valueInTableOf(i, j) == BLOCKEDPIECE && aux.areTherePiece(printX, printY)) {
+                        return true;
+                    }
                 }
                 printY++;
             }
