@@ -14,7 +14,7 @@ public class TableManager implements Serializable {
     BufferedPieces bufferedPieces;
     Piece piece;
     private int score = 0;
-    public boolean gameOver= false;
+    public boolean gameOver = false;
 
     public int getScore() {
         return score;
@@ -48,13 +48,13 @@ public class TableManager implements Serializable {
     }
 
     public boolean isGameOver() {
-       int x =  point.x_coordenade;
-       int y =  point.y_coordenade;
-        for (int i = x-1; i <= x+1 ; i++) {
-            int xpiece= 0;
-            for (int j = y-1; j <=y+1 ; j++) {
-               int ypiece =0;
-                if(piece.areTherePiece(xpiece,ypiece) && table.valueInTableOf(i,j)==BLOCKEDPIECE){
+        int x = point.x_coordenade;
+        int y = point.y_coordenade;
+        for (int i = x - 1; i <= x + 1; i++) {
+            int xpiece = 0;
+            for (int j = y - 1; j <= y + 1; j++) {
+                int ypiece = 0;
+                if (piece.areTherePiece(xpiece, ypiece) && table.valueInTableOf(i, j) == BLOCKEDPIECE) {
                     return true;
                 }
                 ypiece++;
@@ -161,7 +161,7 @@ public class TableManager implements Serializable {
         for (int i = point.getX_coordenade() - 1; i <= point.getX_coordenade() + 1; i++) {
             int printY = 0;
             for (int j = point.getY_coordenade() - 1; j <= point.getY_coordenade() + 1; j++) {
-                if (j > table.getLength_Of_Y()) {
+                if (j < table.getLength_Of_Y() && j > 0) {
                     if (table.valueInTableOf(i, j) == BLOCKEDPIECE && aux.areTherePiece(printX, printY)) {
                         return true;
                     }
