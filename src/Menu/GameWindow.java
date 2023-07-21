@@ -141,16 +141,16 @@ public class GameWindow extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-            {
+
+
+            if (!gamePanel.tableManager.gameOver) {
                 gamePanel.tableManager.movedPoint(e.getKeyChar());
                 gamePanel.validate();
                 gamePanel.repaint();
 
                 scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
-            }
-            if (gamePanel.tableManager.isGameOver()) {
-                gameOver();
-            }
+
+            }else{gameOver();}
 
         }
 

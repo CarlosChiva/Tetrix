@@ -1,10 +1,11 @@
-
 import Menu.MainWindow;
+
+import javax.swing.*;
 
 public class main {
 
     public static void main(String[] args) {
-        /*TableManager tableManager = new TableManager();
+    /*    TableManager tableManager = new TableManager();
         Scanner scn = new Scanner(System.in);
         char chos;
         tableManager.printTable();
@@ -16,18 +17,18 @@ public class main {
             chos = choose[0];
             tableManager.movedPoint(chos);
             tableManager.printTable();
-        } while (chos != 0);
-    */
+        } while (!tableManager.gameOver);
+*/
 
-      //  new MainWindow();
-      /*  SwingUtilities.invokeLater(new Runnable() {
+       // new MainWindow();
+        SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 MainWindow mainWindow=new MainWindow();
             }
         });
-    */
-        MainWindow mainWindow=new MainWindow();
+
+       // MainWindow mainWindow=new MainWindow();
 
     
     }

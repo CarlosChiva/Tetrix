@@ -14,6 +14,7 @@ public class TableManager implements Serializable {
     BufferedPieces bufferedPieces;
     Piece piece;
     private int score = 0;
+    public boolean gameOver= false;
 
     public int getScore() {
         return score;
@@ -47,7 +48,20 @@ public class TableManager implements Serializable {
     }
 
     public boolean isGameOver() {
-        return areTherePiece(ERROR);
+       int x =  point.x_coordenade;
+       int y =  point.y_coordenade;
+        for (int i = x-1; i <= x+1 ; i++) {
+            int xpiece= 0;
+            for (int j = y-1; j <=y+1 ; j++) {
+               int ypiece =0;
+                if(piece.areTherePiece(xpiece,ypiece) && table.valueInTableOf(i,j)==BLOCKEDPIECE){
+                    return true;
+                }
+                ypiece++;
+            }
+            xpiece++;
+        }
+        return false;
     }
 
     //--------------------------------------------------------------------------Move
@@ -271,11 +285,12 @@ public class TableManager implements Serializable {
     private void gameOver() {
         ScoreProvider scoreProvider = new ScoreProvider();
         scoreProvider.saveScore(getScore());
+        gameOver = true;
         System.out.println("Game over");
         System.out.println("Your score is: " + getScore());
     }
 
-    /*public void printTable() {
+    public void printTable() {
         for (Enum[] ints : table.table) {
             for (int j = 0; j < table.getLength_Of_Y(); j++) {
                 if (ints[j] == EMPTY) {
@@ -292,5 +307,5 @@ public class TableManager implements Serializable {
             }
             System.out.println();
         }
-    }*/
+    }
 }
