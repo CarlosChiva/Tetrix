@@ -135,6 +135,20 @@ public class GameWindow extends JFrame {
 
     }
 
+    private void movement(char movement) {
+        if (!gamePanel.tableManager.gameOver) {
+            gamePanel.tableManager.movedPoint(movement);
+            gamePanel.validate();
+            gamePanel.repaint();
+
+            scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
+
+        } else {
+            gameOver();
+        }
+
+    }
+
     class KeyListenerr implements java.awt.event.KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
@@ -143,19 +157,7 @@ public class GameWindow extends JFrame {
 
         @Override
         public void keyPressed(KeyEvent e) {
-
-
-            if (!gamePanel.tableManager.gameOver) {
-                gamePanel.tableManager.movedPoint(e.getKeyChar());
-                gamePanel.validate();
-                gamePanel.repaint();
-
-                scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
-
-            } else {
-                gameOver();
-            }
-
+            movement(e.getKeyChar());
         }
 
         @Override
@@ -211,10 +213,7 @@ public class GameWindow extends JFrame {
         public void run() {
             while (!Thread.currentThread().isInterrupted()) {
                 if (activate) {
-                    gamePanel.tableManager.movedPoint('s');
-                    gamePanel.validate();
-                    gamePanel.repaint();
-                    // Realizar un solo movimiento
+                    movement('s');
                     try {
                         Thread.sleep(700); // Esperar antes de realizar el siguiente movimiento
                     } catch (InterruptedException e) {
