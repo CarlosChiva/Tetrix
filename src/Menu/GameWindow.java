@@ -19,11 +19,13 @@ public class GameWindow extends JFrame {
     JButton save;
     JTextField jTextField;
     ActionListener actionListener = new ActionListener();
+    volatile private boolean threadState = true;
+    AutomaticMovement actionThread = new AutomaticMovement();
 
     public GameWindow() {
         loadCaracteristicsOfJFrame();
         loadFirstComponents();
-
+        actionThread.start();
     }
 
     public GameWindow(TableManager tableManager) {
@@ -150,7 +152,9 @@ public class GameWindow extends JFrame {
 
                 scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
 
-            }else{gameOver();}
+            } else {
+                gameOver();
+            }
 
         }
 
@@ -169,6 +173,7 @@ public class GameWindow extends JFrame {
                 gamePanel.setVisible(false);
                 pause.setVisible(false);
                 paus();
+                actionThread.setActivate(false);
                 pack();
                 requestFocus();
                 validate();
@@ -182,6 +187,7 @@ public class GameWindow extends JFrame {
                 remove(aContinue);
                 remove(saveGame);
                 requestFocus();
+                actionThread.setActivate(true);
 
 
             } else if (e.getSource().equals(saveGame)) {
@@ -197,5 +203,33 @@ public class GameWindow extends JFrame {
             }
         }
     }
+
+    class AutomaticMovement extends Thread {
+        public boolean activate = true;
+
+        @Override
+        public void run() {
+            while (!Thread.currentThread().isInterrupted()) {
+                if (activate) {
+                    gamePanel.tableManager.movedPoint('s');
+                    gamePanel.validate();
+                    gamePanel.repaint();
+                    // Realizar un solo movimiento
+                    try {
+                        Thread.sleep(700); // Esperar antes de realizar el siguiente movimiento
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt(); // Restablecer el estado de interrupción
+                    }
+                }
+            }
+        }
+
+        public void setActivate(boolean activate) {
+            this.activate = activate;
+
+        }
+    }
 }
+
+
 
