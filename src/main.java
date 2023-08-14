@@ -5,7 +5,8 @@ import javax.swing.*;
 public class main {
 
     public static void main(String[] args) {
-    /*    TableManager tableManager = new TableManager();
+    /* logical version:
+      TableManager tableManager = new TableManager();
         Scanner scn = new Scanner(System.in);
         char chos;
         tableManager.printTable();
@@ -19,17 +20,12 @@ public class main {
             tableManager.printTable();
         } while (!tableManager.gameOver);
 */
-
-       // new MainWindow();
+        //interface version
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
                 MainWindow mainWindow=new MainWindow();
             }
         });
-
-       // MainWindow mainWindow=new MainWindow();
-
-    
     }
 }

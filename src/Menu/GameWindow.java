@@ -201,6 +201,7 @@ public class GameWindow extends JFrame {
             } else if (e.getSource().equals(save)) {
                 GamesLoadProvider gamesLoadProvider = new GamesLoadProvider();
                 gamesLoadProvider.saveGame(gamePanel.tableManager, jTextField.getText());
+                //Here delete this frame and come back to main window
 
             }
         }
