@@ -19,7 +19,6 @@ public class GameWindow extends JFrame {
     JButton save;
     JTextField jTextField;
     ActionListener actionListener = new ActionListener();
-    volatile private boolean threadState = true;
     AutomaticMovement actionThread = new AutomaticMovement();
 
     public GameWindow() {
@@ -38,6 +37,7 @@ public class GameWindow extends JFrame {
         score();
         numSore();
         button();
+        actionThread.start();
     }
 
     public void loadCaracteristicsOfJFrame() {
@@ -71,7 +71,7 @@ public class GameWindow extends JFrame {
 
     private void score() {
         score = new JLabel("Score");
-        score.setBounds(410, 100, 50, 50);
+        score.setBounds(395, 90, 50, 50);
 
         add(score);
     }
@@ -87,7 +87,7 @@ public class GameWindow extends JFrame {
 
     private void button() {
         pause = new JButton("Pause");
-        pause.setBounds(380, 300, 70, 50);
+        pause.setBounds(390, 230, 70, 50);
         pause.setEnabled(true);
         pause.addActionListener(actionListener);
         ImageIcon icono = new ImageIcon("./Images/pause.png");
