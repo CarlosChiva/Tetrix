@@ -55,6 +55,7 @@ public class LoadGameWindow extends JFrame {
         add(select);
         gamesSaved = new JList<>();
         gamesSaved.setBounds(30, 30, 200, 200);
+        gamesSaved.setCellRenderer(new CenteredCellRenderer());
         add(gamesSaved);
 
     }
