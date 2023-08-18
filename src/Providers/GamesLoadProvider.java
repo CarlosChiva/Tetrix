@@ -36,7 +36,7 @@ public class GamesLoadProvider {
 
     public void saveGame(TableManager gamePanel, String namFile) {
         String newFile = nameFile.concat(namFile);
-        try (FileWriter writer = new FileWriter(newFile + ".json")) {
+        try (FileWriter writer = new FileWriter(newFile+".json")) {
             writer.write(gson.toJson(gamePanel));
 
         } catch (IOException e) {
@@ -50,7 +50,7 @@ public class GamesLoadProvider {
         ArrayList<String> list = new ArrayList<>();
         if (arrayFiles != null) {
             for (File arrayFiles : arrayFiles) {
-                list.add(arrayFiles.getName());
+                list.add(arrayFiles.getName().replace(".json",""));
             }
         }
         return list;

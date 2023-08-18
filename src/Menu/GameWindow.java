@@ -202,6 +202,18 @@ public class GameWindow extends JFrame {
                 GamesLoadProvider gamesLoadProvider = new GamesLoadProvider();
                 gamesLoadProvider.saveGame(gamePanel.tableManager, jTextField.getText());
                 //Here delete this frame and come back to main window
+                aContinue.setVisible(false);
+                saveGame.setVisible(false);
+                gamePanel.setVisible(true);
+                gamePanel.addKeyListener(new KeyListenerr());
+                pause.setVisible(true);
+                remove(aContinue);
+                remove(saveGame);
+                remove(save);
+                remove(jTextField);
+                requestFocus();
+                actionThread.setActivate(true);
+
 
             }
         }
