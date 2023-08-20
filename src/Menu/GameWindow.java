@@ -125,6 +125,7 @@ public class GameWindow extends JFrame {
     }
 
     private void gameOver() {
+        actionThread.setActivate(false);
         this.setVisible(false);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
         try {
@@ -144,6 +145,7 @@ public class GameWindow extends JFrame {
             scoreNumber.setText(String.valueOf(gamePanel.tableManager.getScore()));
 
         } else {
+
             gameOver();
         }
 
@@ -232,6 +234,9 @@ public class GameWindow extends JFrame {
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt(); // Restablecer el estado de interrupción
                     }
+                }
+                else {
+                    gamePanel.tableManager.isGameOver();
                 }
             }
         }
